@@ -9,10 +9,14 @@
 
     <StackPanel Padding="32 20 32 0">
         <!--#region Name&Version -->
-        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Loaded="OnLoaded">
-            <Run Text="Dynamic Desktop" FontSize="24" />
-            <Run Text="v0.0.0.0" x:Name="DisplayVersion" x:FieldModifier="Private" FontSize="16" />
-        </TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <Image Source="Assets/Square44x44Logo.scale-200.png" Height="48" />
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Margin="10 0 0 10"
+                       VerticalAlignment="Center" Loaded="OnLoaded">
+                <Run Text="Dynamic Desktop" FontSize="24" />
+                <Run Text="v0.0.0.0" x:Name="DisplayVersion" x:FieldModifier="Private" FontSize="16" />
+            </TextBlock>
+        </StackPanel>
         <!--#endregion-->
 
         <!--#region License -->
@@ -23,6 +27,9 @@
             <LineBreak />
             <Run Text="Principle: " />
             <Hyperlink NavigateUri="https://www.bilibili.com/video/BV1HZ4y1978a">BV1HZ4y1978a</Hyperlink>
+            <LineBreak />
+            <Run Text="Icon: " />
+            <Hyperlink NavigateUri="https://www.iconfont.cn/collections/detail?cid=13746">iconfront</Hyperlink>
         </TextBlock>
         <!--#endregion-->
         
@@ -34,6 +41,15 @@
             <Run Text="此程序旨在实现将任意窗口置于壁纸窗口" />
             <LineBreak />
             <Run Text="通过这个操作, 可以实现动态壁纸" />
+        </TextBlock>
+
+        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontSize="14">
+            <LineBreak />
+            <Run Text="应用程序图标来自" />
+            <Hyperlink NavigateUri="https://www.iconfont.cn">iconfront</Hyperlink>
+            <LineBreak />
+            <Run Text="感谢" />
+            <Hyperlink NavigateUri="https://www.iconfont.cn/user/detail?uid=4078517&amp;nid=FfmTlRUluOp5">风语者</Hyperlink>
         </TextBlock>
 
         <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontSize="14">
