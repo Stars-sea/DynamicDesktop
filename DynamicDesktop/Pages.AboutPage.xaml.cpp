@@ -5,7 +5,6 @@
 #endif
 
 using namespace winrt;
-using namespace Microsoft::UI::Xaml;
 
 namespace winrt::DynamicDesktop::Pages::implementation
 {
@@ -14,18 +13,20 @@ namespace winrt::DynamicDesktop::Pages::implementation
         InitializeComponent();
     }
 
-    int32_t AboutPage::MyProperty()
+    void AboutPage::OnLoaded(Windows::Foundation::IInspectable const&, RoutedEventArgs const&)
     {
-        throw hresult_not_implemented();
+        auto version = Windows::ApplicationModel::Package::Current().Id().Version();
+        DisplayVersion().Text(
+            std::format(L"v{}.{}.{}.{}", 
+                version.Major, 
+                version.Minor, 
+                version.Build, 
+                version.Revision
+            ));
     }
 
-    void AboutPage::MyProperty(int32_t /* value */)
+    void AboutPage::OnRepoClick(Windows::Foundation::IInspectable const&, RoutedEventArgs const&)
     {
-        throw hresult_not_implemented();
-    }
-
-    void AboutPage::myButton_Click(IInspectable const&, RoutedEventArgs const&)
-    {
-        myButton().Content(box_value(L"Clicked"));
+        ShellExecute(NULL, L"open", L"https://github.com/Stars-sea/DynamicDesktop", NULL, NULL, NULL);
     }
 }

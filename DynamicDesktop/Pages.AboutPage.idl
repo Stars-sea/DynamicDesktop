@@ -4,6 +4,5 @@ namespace DynamicDesktop.Pages
     runtimeclass AboutPage : Microsoft.UI.Xaml.Controls.Page
     {
         AboutPage();
-        Int32 MyProperty;
     }
 }

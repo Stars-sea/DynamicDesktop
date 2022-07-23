@@ -8,14 +8,14 @@
     mc:Ignorable="d">
 
     <NavigationView
-        IsSettingsVisible="True" IsPaneOpen="False"
-        SelectionChanged="NavigationItemSelected"
-        Header="{Binding SelectedItem.Content, RelativeSource={RelativeSource Mode=Self}}">
+        IsPaneOpen="False" AlwaysShowHeader="False"
+        IsBackButtonVisible="Collapsed"
+        SelectionChanged="NavigationItemSelected">
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="Home" Content="Home" Tag="HomePage" IsSelected="True" />
-            <NavigationViewItem Icon="Account" Content="About" Tag="AboutPage" />
+            <NavigationViewItem Icon="Home" Content="主页" Tag="HomePage" IsSelected="True" />
+            <NavigationViewItem Icon="Account" Content="关于" Tag="AboutPage" />
         </NavigationView.MenuItems>
 
-        <Frame x:Name="contentFrame" x:FieldModifier="Protected" />
+        <Frame x:Name="contentFrame" x:FieldModifier="Private" />
     </NavigationView>
 </Page>

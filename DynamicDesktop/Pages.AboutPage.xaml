@@ -7,7 +7,80 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+    <StackPanel Padding="32 20 32 0">
+        <!--#region Name&Version -->
+        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Loaded="OnLoaded">
+            <Run Text="Dynamic Desktop" FontSize="24" />
+            <Run Text="v0.0.0.0" x:Name="DisplayVersion" x:FieldModifier="Private" FontSize="16" />
+        </TextBlock>
+        <!--#endregion-->
+
+        <!--#region License -->
+        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">
+            <LineBreak />
+            <Run Text="Author: " />
+            <Hyperlink NavigateUri="https://github.com/Stars-sea" >Stars-sea</Hyperlink>
+            <LineBreak />
+            <Run Text="Principle: " />
+            <Hyperlink NavigateUri="https://www.bilibili.com/video/BV1HZ4y1978a">BV1HZ4y1978a</Hyperlink>
+        </TextBlock>
+        <!--#endregion-->
+        
+        <!--#region Content-->
+        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontSize="14">
+            <LineBreak />
+            <Run Text="欢迎使用 Dynamic Desktop" />
+            <LineBreak />
+            <Run Text="此程序旨在实现将任意窗口置于壁纸窗口" />
+            <LineBreak />
+            <Run Text="通过这个操作, 可以实现动态壁纸" />
+        </TextBlock>
+
+        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontSize="14">
+            <LineBreak />
+            <Run Text="此程序已开源, 遵循" />
+            <Hyperlink NavigateUri="https://opensource.org/licenses/GPL-3.0">GPL v3</Hyperlink>
+            <LineBreak />
+            <Run Text="欢迎各位大佬加以改进 _(:з)∠)_" />
+            <LineBreak />
+            <Run Text="可以通过下面的卡片访问 Github 仓库" />
+            <LineBreak />
+        </TextBlock>
+        
+        <!--#region GithubRepo -->
+        <Button Click="OnRepoClick"
+            ToolTipService.ToolTip="https://github.com/Stars-sea/DynamicDesktop"
+            VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <StackPanel Padding="10 4 10 10">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Symbol="Link" VerticalAlignment="Center" Margin="0 6 0 0" />
+                    <TextBlock Margin="10 0 0 0" Style="{ThemeResource SubtitleTextBlockStyle}">
+                        <Run FontSize="18" Foreground="{ThemeResource TextFillColorSecondary}" Text="Stars-sea" />
+                        <Run FontSize="20" Text="/" />
+                        <Run FontSize="18" Foreground="{ThemeResource TextFillColorSecondary}" Text="DynamicDesktop" />
+                    </TextBlock>
+                </StackPanel>
+
+                <TextBlock Margin="0 10" FontSize="13"
+                    Style="{ThemeResource CaptionTextBlockStyle}"
+                    Text="基于 WinUI3 的动态桌面设置程序" />
+                
+                <TextBlock Text="License: GPL v3" />
+
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Height="12" Width="12" Stroke="Pink" />
+                    <TextBlock Margin="5 0" Text="C++" />
+                </StackPanel>
+            </StackPanel>
+        </Button>
+        <!--#endregion-->
+
+        <!--#endregion-->
+
+        <Button IsEnabled="False" Margin="0 32"
+                ToolTipService.ToolTip="这个功能之后实现 (咕咕咕)"
+                Style="{ThemeResource AccentButtonStyle}">
+            检查更新
+        </Button>
     </StackPanel>
 </Page>
