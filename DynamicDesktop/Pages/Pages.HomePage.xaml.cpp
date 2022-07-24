@@ -4,13 +4,14 @@
 #include "Pages.HomePage.g.cpp"
 #endif
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::DynamicDesktop::Pages::implementation
 {
     HomePage::HomePage()
     {
         InitializeComponent();
+    }
+
+    void HomePage::OnSelectionChanged(Windows::Foundation::IInspectable const& sender, Controls::SelectionChangedEventArgs const& args)
+    {
     }
 }

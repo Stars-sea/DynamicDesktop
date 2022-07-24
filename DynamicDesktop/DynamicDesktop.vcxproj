@@ -106,13 +106,13 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pages.AboutPage.xaml.h">
-      <DependentUpon>Pages.AboutPage.xaml</DependentUpon>
+    <ClInclude Include="Core\CoverDesktop.h" />
+    <ClInclude Include="Pages/Pages.AboutPage.xaml.h">
+      <DependentUpon>Pages/Pages.AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="CoverDesktop.h" />
-    <ClInclude Include="Pages.HomePage.xaml.h">
-      <DependentUpon>Pages.HomePage.xaml</DependentUpon>
+    <ClInclude Include="Pages/Pages.HomePage.xaml.h">
+      <DependentUpon>Pages/Pages.HomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
@@ -122,32 +122,32 @@
     <ClInclude Include="MainWindow.xaml.h">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="Pages.RootPage.xaml.h">
-      <DependentUpon>Pages.RootPage.xaml</DependentUpon>
+    <ClInclude Include="Pages/Pages.RootPage.xaml.h">
+      <DependentUpon>Pages/Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
-    <Page Include="Pages.AboutPage.xaml">
+    <Page Include="Pages/Pages.AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages.HomePage.xaml">
+    <Page Include="Pages/Pages.HomePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml" />
-    <Page Include="Pages.RootPage.xaml">
+    <Page Include="Pages/Pages.RootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Pages.AboutPage.xaml.cpp">
-      <DependentUpon>Pages.AboutPage.xaml</DependentUpon>
+    <ClCompile Include="Core\CoverDesktop.cpp" />
+    <ClCompile Include="Pages/Pages.AboutPage.xaml.cpp">
+      <DependentUpon>Pages/Pages.AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="CoverDesktop.cpp" />
-    <ClCompile Include="Pages.HomePage.xaml.cpp">
-      <DependentUpon>Pages.HomePage.xaml</DependentUpon>
+    <ClCompile Include="Pages/Pages.HomePage.xaml.cpp">
+      <DependentUpon>Pages/Pages.HomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -160,30 +160,30 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Pages.RootPage.xaml.cpp">
-      <DependentUpon>Pages.RootPage.xaml</DependentUpon>
+    <ClCompile Include="Pages/Pages.RootPage.xaml.cpp">
+      <DependentUpon>Pages/Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Pages.AboutPage.idl">
-      <DependentUpon>Pages.AboutPage.xaml</DependentUpon>
+    <Midl Include="Pages/Pages.AboutPage.idl">
+      <DependentUpon>Pages/Pages.AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="App.idl">
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
     </Midl>
-    <Midl Include="Pages.HomePage.idl">
-      <DependentUpon>Pages.HomePage.xaml</DependentUpon>
+    <Midl Include="Pages/Pages.HomePage.idl">
+      <DependentUpon>Pages/Pages.HomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainWindow.idl">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Midl>
-    <Midl Include="Pages.RootPage.idl">
-      <DependentUpon>Pages.RootPage.xaml</DependentUpon>
+    <Midl Include="Pages/Pages.RootPage.idl">
+      <DependentUpon>Pages/Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>

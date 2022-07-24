@@ -5,13 +5,13 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xaml" />
-    <Page Include="Pages.RootPage.xaml">
+    <Page Include="Pages/Pages.RootPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="Pages.HomePage.xaml">
+    <Page Include="Pages/Pages.HomePage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="Pages.AboutPage.xaml">
+    <Page Include="Pages/Pages.AboutPage.xaml">
       <Filter>Pages</Filter>
     </Page>
   </ItemGroup>
@@ -22,11 +22,15 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="CoverDesktop.cpp" />
+    <ClCompile Include="Core\CoverDesktop.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="CoverDesktop.h" />
+    <ClInclude Include="Core\CoverDesktop.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -57,6 +61,9 @@
     </Filter>
     <Filter Include="Pages">
       <UniqueIdentifier>{553223a5-b57d-4154-8469-6e050d1685f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{272fa80c-fc7a-403c-81f2-1fae8d162172}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
