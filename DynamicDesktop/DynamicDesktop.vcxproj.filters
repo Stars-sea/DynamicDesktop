@@ -5,32 +5,38 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xaml" />
-    <Page Include="Pages/Pages.RootPage.xaml">
+    <Page Include="Pages.RootPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="Pages/Pages.HomePage.xaml">
+    <Page Include="Pages.HomePage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="Pages/Pages.AboutPage.xaml">
+    <Page Include="Pages.AboutPage.xaml">
       <Filter>Pages</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
     <Midl Include="MainWindow.idl" />
+    <Midl Include="Core.WindowHandleWrapper.idl">
+      <Filter>Core</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Core\CoverDesktop.cpp">
+    <ClCompile Include="Core.WindowHandle.ixx">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.WindowHandleWrapper.h">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.WindowHandleWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Core\CoverDesktop.h">
-      <Filter>Core</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

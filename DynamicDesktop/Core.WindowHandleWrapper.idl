@@ -1,0 +1,13 @@
+namespace DynamicDesktop.Core
+{
+    runtimeclass WindowHandleWrapper : Windows.Foundation.IStringable
+    {
+        UInt64 HId{ get; };
+
+        WindowHandleWrapper(Int32 hId);
+        Boolean Cover();
+        void Uncover();
+        
+        Boolean Valid();
+    }
+}

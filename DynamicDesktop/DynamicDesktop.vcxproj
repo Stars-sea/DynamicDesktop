@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.props')" />
+  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props')" />
   <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.1.1.3\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.1.1.3\build\native\Microsoft.WindowsAppSDK.props')" />
   <PropertyGroup Label="Globals">
@@ -106,13 +106,17 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\CoverDesktop.h" />
-    <ClInclude Include="Pages/Pages.AboutPage.xaml.h">
-      <DependentUpon>Pages/Pages.AboutPage.xaml</DependentUpon>
+    <ClInclude Include="Core.WindowHandleWrapper.h">
+      <DependentUpon>Core.WindowHandleWrapper.idl</DependentUpon>
+      <SubType>Code</SubType>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClInclude>
+    <ClInclude Include="Pages.AboutPage.xaml.h">
+      <DependentUpon>Pages.AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Pages/Pages.HomePage.xaml.h">
-      <DependentUpon>Pages/Pages.HomePage.xaml</DependentUpon>
+    <ClInclude Include="Pages.HomePage.xaml.h">
+      <DependentUpon>Pages.HomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
@@ -122,32 +126,36 @@
     <ClInclude Include="MainWindow.xaml.h">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="Pages/Pages.RootPage.xaml.h">
-      <DependentUpon>Pages/Pages.RootPage.xaml</DependentUpon>
+    <ClInclude Include="Pages.RootPage.xaml.h">
+      <DependentUpon>Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
-    <Page Include="Pages/Pages.AboutPage.xaml">
+    <Page Include="Pages.AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages/Pages.HomePage.xaml">
+    <Page Include="Pages.HomePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml" />
-    <Page Include="Pages/Pages.RootPage.xaml">
+    <Page Include="Pages.RootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\CoverDesktop.cpp" />
-    <ClCompile Include="Pages/Pages.AboutPage.xaml.cpp">
-      <DependentUpon>Pages/Pages.AboutPage.xaml</DependentUpon>
+    <ClCompile Include="Core.WindowHandle.ixx" />
+    <ClCompile Include="Core.WindowHandleWrapper.cpp">
+      <DependentUpon>Core.WindowHandleWrapper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Pages/Pages.HomePage.xaml.cpp">
-      <DependentUpon>Pages/Pages.HomePage.xaml</DependentUpon>
+    <ClCompile Include="Pages.AboutPage.xaml.cpp">
+      <DependentUpon>Pages.AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Pages.HomePage.xaml.cpp">
+      <DependentUpon>Pages.HomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -160,30 +168,33 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Pages/Pages.RootPage.xaml.cpp">
-      <DependentUpon>Pages/Pages.RootPage.xaml</DependentUpon>
+    <ClCompile Include="Pages.RootPage.xaml.cpp">
+      <DependentUpon>Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Pages/Pages.AboutPage.idl">
-      <DependentUpon>Pages/Pages.AboutPage.xaml</DependentUpon>
+    <Midl Include="Pages.AboutPage.idl">
+      <DependentUpon>Pages.AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="App.idl">
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
     </Midl>
-    <Midl Include="Pages/Pages.HomePage.idl">
-      <DependentUpon>Pages/Pages.HomePage.xaml</DependentUpon>
+    <Midl Include="Pages.HomePage.idl">
+      <DependentUpon>Pages.HomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainWindow.idl">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Midl>
-    <Midl Include="Pages/Pages.RootPage.idl">
-      <DependentUpon>Pages/Pages.RootPage.xaml</DependentUpon>
+    <Midl Include="Pages.RootPage.idl">
+      <DependentUpon>Pages.RootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Core.WindowHandleWrapper.idl">
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>
@@ -210,7 +221,7 @@
     <Import Project="..\packages\Microsoft.WindowsAppSDK.1.1.3\build\native\Microsoft.WindowsAppSDK.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.1.1.3\build\native\Microsoft.WindowsAppSDK.targets')" />
     <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.targets')" />
     <Import Project="..\packages\Microsoft.Windows.ImplementationLibrary.1.0.220201.1\build\native\Microsoft.Windows.ImplementationLibrary.targets" Condition="Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.220201.1\build\native\Microsoft.Windows.ImplementationLibrary.targets')" />
-    <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -221,7 +232,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.22621.1\build\Microsoft.Windows.SDK.BuildTools.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.220201.1\build\native\Microsoft.Windows.ImplementationLibrary.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.ImplementationLibrary.1.0.220201.1\build\native\Microsoft.Windows.ImplementationLibrary.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.220418.1\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.220608.4\build\native\Microsoft.Windows.CppWinRT.targets'))" />
   </Target>
 </Project>

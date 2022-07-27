@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Pages.RootPage.g.h"
+
 using namespace winrt::Microsoft::UI::Xaml::Controls;
 
 namespace winrt::DynamicDesktop::Pages::implementation
