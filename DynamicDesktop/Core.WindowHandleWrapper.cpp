@@ -10,9 +10,9 @@ namespace winrt::DynamicDesktop::Core::implementation
 		hId(hId), handle(WindowHandle(hId)) { }
 	bool WindowHandleWrapper::Cover() { return handle.Cover(); }
 	void WindowHandleWrapper::Uncover() { handle.Uncover(); }
+
 	bool WindowHandleWrapper::Valid() { return handle.Valid(); }
+	bool WindowHandleWrapper::IsCovered() { return handle.IsCovered(); }
 
 	winrt::hstring WindowHandleWrapper::ToString() { return std::wstring(handle).c_str(); }
-
-	void WindowHandleWrapper::UncoverAll() { WindowHandle::UncoverAll(); }
 }

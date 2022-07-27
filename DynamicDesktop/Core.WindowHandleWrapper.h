@@ -15,11 +15,11 @@ namespace winrt::DynamicDesktop::Core::implementation
 
 		bool Cover();
 		void Uncover();
+
 		bool Valid();
+		bool IsCovered();
 
 		winrt::hstring ToString();
-
-		static void UncoverAll();
 	private:
 		const size_t hId;
 		const WindowHandle handle;

@@ -60,7 +60,32 @@ namespace Utils {
 			}, (LPARAM)&pah);
 		return pah.hWnd;
 	}
+
+	template <typename T>
+	concept is_char_ele = std::_Is_any_of_v<T, char, wchar_t>;
+
+	template <is_char_ele Ele>
+	std::basic_string<Ele> HandleToString(const size_t& handle)
+	{
+		using namespace std;
+		basic_stringstream<Ele> ss;
+		ss	<< setiosflags(ios::right)
+			<< setw(16)
+			<< setfill<Ele>('0')
+			<< hex
+			<< handle;
+		return ss.str();
+	}
 }
+
+export class invaild_handle : public std::exception
+{
+public:
+	invaild_handle(size_t handle) : 
+		handle(handle), std::exception(("Invaild handle " + Utils::HandleToString<char>(handle)).c_str()) {}
+private:
+	const size_t handle;
+};
 
 export class WindowHandle
 {
@@ -71,16 +96,12 @@ private:
 
 	static std::list<WindowHandle> instances;
 
-	static bool TryFindInstance(
-		const std::function<bool(const WindowHandle&)>& pred,
-		ptr_type& out
-	) {
-		const auto end  = instances.end();
-		const auto iter = std::find_if(instances.begin(), end, pred);
-		if (end == iter) return false;
-
-		out.reset(&(*iter));
-		return true;
+	void ValidAndThrow() const
+	{
+		if (!Valid()) {
+			instances.remove(*this);
+			throw invaild_handle(hId);
+		}
 	}
 
 public:
@@ -98,11 +119,10 @@ public:
 
 	bool Cover() const
 	{
-		if (!Valid())
-			throw std::exception("Invalid HWND");
+		ValidAndThrow();
 
 		HWND hProgman  = Utils::GetProgmanHWND();
-		HWND hWorkerW2 = Utils:: GetDesktopWorkerW2();
+		HWND hWorkerW2 = Utils::GetDesktopWorkerW2();
 
 		if (!hWorkerW2)
 			SendMessageTimeout(hProgman, 0x52C, NULL, NULL, NULL, 100, NULL);
@@ -126,25 +146,14 @@ public:
 		if (IsWindow(hWorkerW2))
 			ShowWindow(hWorkerW2, SW_SHOW);
 
-		if (Valid())
-			SetParent(hWnd, NULL);
+		ValidAndThrow();
+		SetParent(hWnd, NULL);
 	}
 
-	static void UncoverAll()
+	bool IsCovered() const
 	{
-		HWND hWorkerW2 = Utils::GetDesktopWorkerW2();
-		if (IsWindow(hWorkerW2))
-			ShowWindow(hWorkerW2, SW_SHOW);
-
-		const auto end = instances.end();
-		for (auto begin = instances.begin(); begin != end; ) {
-			if (!begin->Valid()) {
-				instances.erase(begin++);
-				continue;
-			}
-			SetParent(begin->hWnd, NULL);
-			begin++;
-		}
+		ValidAndThrow();
+		return GetParent(hWnd) == Utils::GetProgmanHWND();
 	}
 
 	bool operator==(const WindowHandle& other) const
@@ -154,19 +163,8 @@ public:
 		return false;
 	}
 
-	operator std::string() const
-	{
-		std::stringstream ss;
-		ss << std::hex << hId;
-		return ss.str();
-	}
-
-	operator std::wstring() const
-	{
-		std::wstringstream wss;
-		wss << std::hex << hId;
-		return wss.str();
-	}
+	operator std::string()  const { return Utils::HandleToString<char>(hId); }
+	operator std::wstring() const { return Utils::HandleToString<wchar_t>(hId); }
 };
 
 std::list<WindowHandle> WindowHandle::instances;
