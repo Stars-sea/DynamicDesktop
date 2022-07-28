@@ -7,47 +7,63 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <SplitView PanePlacement="Right">
+    <SplitView 
+        x:Name="Root" x:FieldModifier="Private"
+        PanePlacement="Right" IsPaneOpen="False"
+        PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
+        PaneOpening="OnPaneOpening" PaneClosing="OnPaneClosing">
         <SplitView.Pane>
-            <Grid
-                CornerRadius="{ThemeResource ControlCornerRadius}"
-                Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}">
+            <Grid Padding="10 3">
                 <TextBlock Text="TODO" Style="{ThemeResource SubtitleTextBlockStyle}" />
             </Grid>
         </SplitView.Pane>
-        
-        <Grid Padding="48 36 32 0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Viewbox Width="48">
-                    <SymbolIcon Symbol="Pictures" />
-                </Viewbox>
-                <StackPanel Margin="10 0">
-                    <TextBlock Text="窗口设置" Style="{ThemeResource TitleTextBlockStyle}" />
-                    <TextBlock Text="添加或选择窗口句柄进行桌面设置" Style="{ThemeResource CaptionTextBlockStyle}" />
+
+        <Grid>
+            <!--#region ContentPanel -->
+            <Grid Padding="48 36 32 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--#region Title -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Viewbox Width="48">
+                        <SymbolIcon Symbol="Pictures" />
+                    </Viewbox>
+                    <StackPanel Margin="10 0">
+                        <TextBlock Text="窗口设置" Style="{ThemeResource TitleTextBlockStyle}" />
+                        <TextBlock Text="添加或选择窗口句柄进行桌面设置" Style="{ThemeResource CaptionTextBlockStyle}" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+                <!--#endregion-->
 
-            <StackPanel Grid.Row="1" Margin="0 10 0 0">
-                <TextBlock Text="句柄" Margin="0 5"
-                           Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <!--#region HandleList -->
+                <StackPanel Grid.Row="1" Margin="0 10 0 0">
+                    <TextBlock Text="句柄" Margin="0 5"
+                               Style="{ThemeResource SubtitleTextBlockStyle}" />
 
-                <Grid CornerRadius="{ThemeResource ControlCornerRadius}"
-                      Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
-                    <ListView SelectionChanged="OnSelectionChanged">
-                        <ListViewItem IsEnabled="False">
-                            <TextBlock Text="空无一物" Style="{ThemeResource BodyStrongTextBlockStyle}" />
-                        </ListViewItem>
-                        <ListView.Footer>
-                            <Button Content="添加窗口句柄" Margin="5" />
-                        </ListView.Footer>
-                    </ListView>
-                </Grid>
-            </StackPanel>
+                    <Grid CornerRadius="{ThemeResource ControlCornerRadius}"
+                          Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
+                        <ListView SelectionChanged="OnSelectionChanged">
+                            <ListViewItem IsEnabled="False">
+                                <TextBlock Text="空无一物" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                            </ListViewItem>
+                            <ListView.Footer>
+                                <Button Content="添加窗口句柄" Margin="5" />
+                            </ListView.Footer>
+                        </ListView>
+                    </Grid>
+
+                    <Button Content="Test" Click="OnTestClick" />
+                </StackPanel>
+                <!--#endregion-->
+            </Grid>
+            <!--#endregion-->
+
+            <Rectangle 
+                x:Name="AcrylicMask" x:FieldModifier="Private" Opacity="0" Visibility="Collapsed"
+                Fill="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
         </Grid>
     </SplitView>
 </Page>

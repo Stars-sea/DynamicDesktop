@@ -1,8 +1,11 @@
+import "Core.WindowHandleWrapper.idl";
+
 namespace DynamicDesktop.Pages
 {
     [default_interface]
     runtimeclass HomePage : Microsoft.UI.Xaml.Controls.Page
     {
         HomePage();
+        Windows.Foundation.Collections.IObservableVector<DynamicDesktop.Core.WindowHandleWrapper> Wrappers{ get; };
     }
 }

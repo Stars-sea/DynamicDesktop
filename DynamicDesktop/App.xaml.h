@@ -10,7 +10,8 @@ namespace winrt::DynamicDesktop::implementation
 
         void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
 
+        Microsoft::UI::Xaml::Window CurrentWindow() { return window; }
     private:
-        winrt::Microsoft::UI::Xaml::Window window{ nullptr };
+        Microsoft::UI::Xaml::Window window{ nullptr };
     };
 }
