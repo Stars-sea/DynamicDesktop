@@ -4,25 +4,9 @@
 #include "Pages.HomePage.g.cpp"
 #endif
 
-#include "App.xaml.h"
-
 namespace winrt::DynamicDesktop::Pages::implementation
 {
-    auto GetPaneAnime(float finalValue)
-    {
-        using DynamicDesktop::implementation::App;
-
-        App* app = Microsoft::UI::Xaml::Application::Current().as<App>().get();
-        auto anime = app->CurrentWindow().Compositor().CreateSpringScalarAnimation();
-
-        anime.Target(L"Opacity");
-        anime.FinalValue(IReference(finalValue));
-        anime.Period(TimeSpan(1000));
-
-        return anime;
-    }
-
-    HomePage::HomePage() : paneOpenAnime(GetPaneAnime(1)), paneCloseAnime(GetPaneAnime(0))
+    HomePage::HomePage()
     {
         InitializeComponent();
     }
@@ -30,12 +14,12 @@ namespace winrt::DynamicDesktop::Pages::implementation
     void HomePage::OnPaneOpening(Controls::SplitView const&, IInspectable const&)
     {
         AcrylicMask().Visibility(Visibility::Visible);
-        AcrylicMask().StartAnimation(paneOpenAnime);
+        AcrylicMask().Opacity(1);
     }
 
     void HomePage::OnPaneClosing(Controls::SplitView const&, Controls::SplitViewPaneClosingEventArgs const&)
     {
-        AcrylicMask().StartAnimation(paneCloseAnime);
+        AcrylicMask().Opacity(0);
         AcrylicMask().Visibility(Visibility::Collapsed);
     }
 
@@ -47,7 +31,7 @@ namespace winrt::DynamicDesktop::Pages::implementation
     {
 
     }
-    void HomePage::OnTestClick(IInspectable const& sender, RoutedEventArgs const& args)
+    void HomePage::OnTestClick(IInspectable const&, RoutedEventArgs const&)
     {
         Root().IsPaneOpen(!Root().IsPaneOpen());
     }

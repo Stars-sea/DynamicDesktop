@@ -22,9 +22,6 @@ namespace winrt::DynamicDesktop::Pages::implementation
         void OnTestClick(IInspectable const& sender, RoutedEventArgs const& args);
     private:
         Collections::IObservableVector<Core::WindowHandleWrapper> wrappers;
-
-        Microsoft::UI::Composition::ScalarNaturalMotionAnimation paneOpenAnime;
-        Microsoft::UI::Composition::ScalarNaturalMotionAnimation paneCloseAnime;
     };
 }
 

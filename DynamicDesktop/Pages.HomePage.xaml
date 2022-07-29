@@ -2,7 +2,6 @@
     x:Class="DynamicDesktop.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DynamicDesktop"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -45,10 +44,12 @@
 
                     <Grid CornerRadius="{ThemeResource ControlCornerRadius}"
                           Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
-                        <ListView SelectionChanged="OnSelectionChanged">
+                        <ListView ItemsSource="{x:Bind Wrappers}" SelectionChanged="OnSelectionChanged">
+
                             <ListViewItem IsEnabled="False">
                                 <TextBlock Text="空无一物" Style="{ThemeResource BodyStrongTextBlockStyle}" />
                             </ListViewItem>
+                            
                             <ListView.Footer>
                                 <Button Content="添加窗口句柄" Margin="5" />
                             </ListView.Footer>
@@ -63,7 +64,11 @@
 
             <Rectangle 
                 x:Name="AcrylicMask" x:FieldModifier="Private" Opacity="0" Visibility="Collapsed"
-                Fill="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
+                Fill="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
+                <Rectangle.OpacityTransition>
+                    <ScalarTransition />
+                </Rectangle.OpacityTransition>
+            </Rectangle>
         </Grid>
     </SplitView>
 </Page>
