@@ -61,6 +61,12 @@ namespace Utils {
 		return pah.hWnd;
 	}
 
+	inline const wchar_t* WStringConvertToPtr(const std::wstring str)
+	{
+		if (str.empty()) return NULL;
+		return str.c_str();
+	}
+
 	template <typename T>
 	concept is_char_ele = std::_Is_any_of_v<T, char, wchar_t>;
 
@@ -112,6 +118,12 @@ public:
 
 	WindowHandle(const size_t& hId) :
 		hWnd(HWND(hId)), hId(hId) { }
+
+	WindowHandle(const std::wstring& className, const std::wstring& windowName) : 
+		WindowHandle(FindWindow(
+			Utils::WStringConvertToPtr(className),
+			Utils::WStringConvertToPtr(windowName)
+		)) {}
 
 	~WindowHandle() { instances.remove(*this); }
 

@@ -5,6 +5,8 @@ namespace DynamicDesktop.Core
         UInt64 HId{ get; };
 
         WindowHandleWrapper(Int32 hId);
+        WindowHandleWrapper(String className, String windowName);
+
         Boolean Cover();
         void Uncover();
         

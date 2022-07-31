@@ -25,14 +25,17 @@ namespace winrt::DynamicDesktop::Pages::implementation
 
     void HomePage::OnSelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const&)
     {
+        Root().IsPaneOpen(true);
     }
 
     void HomePage::OnLoaded(IInspectable const&, RoutedEventArgs const&)
     {
-
     }
-    void HomePage::OnTestClick(IInspectable const&, RoutedEventArgs const&)
+
+    void HomePage::OnAddHandleClick(IInspectable const&, RoutedEventArgs const&)
     {
-        Root().IsPaneOpen(!Root().IsPaneOpen());
+        // Test
+        Handle wrapper(L"", L"WinUI 3 Gallery");
+        Wrappers().Append(wrapper);
     }
 }

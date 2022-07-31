@@ -9,9 +9,10 @@ namespace winrt::DynamicDesktop::Core::implementation
 	struct WindowHandleWrapper : WindowHandleWrapperT<WindowHandleWrapper>
 	{
 	public:
-		size_t HId() { return hId; }
+		size_t HId() { return handle.hId; }
 
-		WindowHandleWrapper(size_t hId);
+		WindowHandleWrapper(const size_t& hId);
+		WindowHandleWrapper(const hstring& className, const hstring& windowName);
 
 		bool Cover();
 		void Uncover();
@@ -21,7 +22,6 @@ namespace winrt::DynamicDesktop::Core::implementation
 
 		winrt::hstring ToString();
 	private:
-		const size_t hId;
 		const WindowHandle handle;
 	};
 }
