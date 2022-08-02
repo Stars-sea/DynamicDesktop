@@ -13,9 +13,10 @@ namespace winrt::DynamicDesktop::Pages::implementation
 {
     struct HomePage : HomePageT<HomePage>
     {
-        HomePage();
-
         Collections::IObservableVector<Handle> Wrappers() { return wrappers; }
+        Handle SelectedHandle() const { return selectedHandle; }
+
+        HomePage();
 
         void OnPaneOpening(Controls::SplitView const& sender, IInspectable const& args);
         void OnPaneClosing(Controls::SplitView const& sender, Controls::SplitViewPaneClosingEventArgs const& args);
@@ -24,6 +25,7 @@ namespace winrt::DynamicDesktop::Pages::implementation
         void OnAddHandleClick(IInspectable const& sender, RoutedEventArgs const& args);
     private:
         Collections::IObservableVector<Handle> wrappers = multi_threaded_observable_vector<Handle>();
+        Handle selectedHandle = nullptr;
     };
 }
 

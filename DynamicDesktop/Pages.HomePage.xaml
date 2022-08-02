@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:core="using:DynamicDesktop.Core"
     mc:Ignorable="d" Loaded="OnLoaded">
 
     <SplitView 
@@ -12,9 +13,23 @@
         PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
         PaneOpening="OnPaneOpening" PaneClosing="OnPaneClosing">
         <SplitView.Pane>
-            <Grid Padding="10 3">
-                <TextBlock Text="TODO" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            </Grid>
+            <StackPanel Padding="10 3">
+                <TextBlock Text="窗口设置" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                
+                <!--#region WindowInfo -->
+                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">
+                    <LineBreak />
+                    <Run Text="Title: " />
+                    <Run Text="{x:Bind SelectedHandle.WindowTitle}" />
+                    <LineBreak />
+                    <Run Text="Class: " />
+                    <Run Text="{x:Bind SelectedHandle.WindowClass}" />
+                    <LineBreak />
+                    <Run Text="Handle: " />
+                    <Run Text="{x:Bind SelectedHandle.HexId}" />
+                </TextBlock>
+                <!--#endregion-->
+            </StackPanel>
         </SplitView.Pane>
 
         <Grid>
@@ -42,14 +57,28 @@
                     <TextBlock Text="句柄" Margin="0 5"
                                Style="{ThemeResource SubtitleTextBlockStyle}" />
 
-                    <Grid CornerRadius="{ThemeResource ControlCornerRadius}"
-                          Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
-                        <ListView ItemsSource="{x:Bind Wrappers}" SelectionChanged="OnSelectionChanged">
-                            <ListView.Footer>
-                                <Button Content="添加窗口句柄" Margin="5" Click="OnAddHandleClick" />
-                            </ListView.Footer>
-                        </ListView>
-                    </Grid>
+                    <ListView
+                        ItemsSource="{x:Bind Wrappers}" SelectionChanged="OnSelectionChanged"
+                        CornerRadius="{ThemeResource ControlCornerRadius}"
+                        Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="core:WindowHandleWrapper">
+                                <Grid Padding="0 0 0 5">
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">
+                                        <Run FontSize="16" Text="{x:Bind WindowTitle}" />
+                                        <LineBreak />
+                                        <Run FontSize="12" Text="{x:Bind WindowClass}" Foreground="{ThemeResource TextFillColorSecondary}" />
+                                        <LineBreak />
+                                        <Run FontSize="12" Text="{x:Bind HexId}" Foreground="{ThemeResource TextFillColorSecondary}" />
+                                    </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                        <ListView.Footer>
+                            <Button Content="添加窗口句柄" Margin="5" Click="OnAddHandleClick" />
+                        </ListView.Footer>
+                    </ListView>
                 </StackPanel>
                 <!--#endregion-->
             </Grid>

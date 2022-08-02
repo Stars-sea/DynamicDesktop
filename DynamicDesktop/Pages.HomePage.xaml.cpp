@@ -23,8 +23,9 @@ namespace winrt::DynamicDesktop::Pages::implementation
         AcrylicMask().Visibility(Visibility::Collapsed);
     }
 
-    void HomePage::OnSelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const&)
+    void HomePage::OnSelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const& args)
     {
+        selectedHandle = (*args.AddedItems().First()).as<Handle>();
         Root().IsPaneOpen(true);
     }
 
@@ -35,7 +36,7 @@ namespace winrt::DynamicDesktop::Pages::implementation
     void HomePage::OnAddHandleClick(IInspectable const&, RoutedEventArgs const&)
     {
         // Test
-        Handle wrapper(L"", L"WinUI 3 Gallery");
+        Handle wrapper(L"WinUI 3 Gallery", true);
         Wrappers().Append(wrapper);
     }
 }

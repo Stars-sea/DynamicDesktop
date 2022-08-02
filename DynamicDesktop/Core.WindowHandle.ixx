@@ -61,12 +61,6 @@ namespace Utils {
 		return pah.hWnd;
 	}
 
-	inline const wchar_t* WStringConvertToPtr(const std::wstring str)
-	{
-		if (str.empty()) return NULL;
-		return str.c_str();
-	}
-
 	template <typename T>
 	concept is_char_ele = std::_Is_any_of_v<T, char, wchar_t>;
 
@@ -78,7 +72,7 @@ namespace Utils {
 		ss	<< setiosflags(ios::right)
 			<< setw(16)
 			<< setfill<Ele>('0')
-			<< hex
+			<< hex << uppercase
 			<< handle;
 		return ss.str();
 	}
@@ -102,6 +96,9 @@ private:
 
 	static std::list<WindowHandle> instances;
 
+	// TODO: Need optimization!
+	// Each time the following functions are called, 
+	// this will be called. Wasted performance.
 	void ValidAndThrow() const
 	{
 		if (!Valid()) {
@@ -119,11 +116,10 @@ public:
 	WindowHandle(const size_t& hId) :
 		hWnd(HWND(hId)), hId(hId) { }
 
-	WindowHandle(const std::wstring& className, const std::wstring& windowName) : 
-		WindowHandle(FindWindow(
-			Utils::WStringConvertToPtr(className),
-			Utils::WStringConvertToPtr(windowName)
-		)) {}
+	WindowHandle(const std::wstring& name, bool isTitle) : 
+		WindowHandle(isTitle ? FindWindow(NULL, name.c_str()) :
+					           FindWindow(name.c_str(), NULL)
+	) { }
 
 	~WindowHandle() { instances.remove(*this); }
 
@@ -166,6 +162,32 @@ public:
 	{
 		ValidAndThrow();
 		return GetParent(hWnd) == Utils::GetProgmanHWND();
+	}
+
+	std::wstring GetWindowTitle() const
+	{
+		ValidAndThrow();
+		wchar_t str[128];
+		if (GetWindowText(hWnd, str, sizeof(str)))
+			return std::wstring(str);
+		throw std::exception("Failed to get window title.");
+	}
+
+	std::wstring GetWindowClass() const
+	{
+		ValidAndThrow();
+		wchar_t str[128];
+		if (RealGetWindowClass(hWnd, str, sizeof(str)))
+			return std::wstring(str);
+		throw std::exception("Failed to get window class.");
+	}
+
+	HICON GetWindowIcon() const
+	{
+		ValidAndThrow();
+		ULONG_PTR ptr = GetClassLongPtr(hWnd, GCLP_HICON);
+		if (ptr) return (HICON)ptr;
+		throw std::exception("Failed to get window icon.");
 	}
 
 	bool operator==(const WindowHandle& other) const

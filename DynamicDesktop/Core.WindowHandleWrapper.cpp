@@ -8,14 +8,13 @@ namespace winrt::DynamicDesktop::Core::implementation
 {
 	WindowHandleWrapper::WindowHandleWrapper(const size_t& hId) : 
 		handle(WindowHandle(hId)) { }
-	WindowHandleWrapper::WindowHandleWrapper(const hstring& className, const hstring& windowName) :
-	    handle(WindowHandle(className.c_str(), windowName.c_str())) { }
+	WindowHandleWrapper::WindowHandleWrapper(const hstring& name, bool isTitle) :
+	    handle(WindowHandle(name.c_str(), isTitle)) { }
 
-	bool WindowHandleWrapper::Cover() { return handle.Cover(); }
-	void WindowHandleWrapper::Uncover() { handle.Uncover(); }
+	bool WindowHandleWrapper::Cover()   const { return handle.Cover(); }
+	void WindowHandleWrapper::Uncover() const { handle.Uncover(); }
 
-	bool WindowHandleWrapper::Valid() { return handle.Valid(); }
-	bool WindowHandleWrapper::IsCovered() { return handle.IsCovered(); }
+	bool WindowHandleWrapper::Valid() const { return handle.Valid(); }
 
-	winrt::hstring WindowHandleWrapper::ToString() { return std::wstring(handle).c_str(); }
+	hstring WindowHandleWrapper::ToString() const { return std::wstring(handle).c_str(); }
 }

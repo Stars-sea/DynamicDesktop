@@ -109,7 +109,6 @@
     <ClInclude Include="Core.WindowHandleWrapper.h">
       <DependentUpon>Core.WindowHandleWrapper.idl</DependentUpon>
       <SubType>Code</SubType>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClInclude>
     <ClInclude Include="Pages.AboutPage.xaml.h">
       <DependentUpon>Pages.AboutPage.xaml</DependentUpon>

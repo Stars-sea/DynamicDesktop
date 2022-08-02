@@ -28,9 +28,15 @@
     <ClCompile Include="Core.WindowHandleWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Core.WindowHandleContainer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Core.WindowHandleContainer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
