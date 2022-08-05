@@ -13,19 +13,23 @@ namespace winrt::DynamicDesktop::Pages::implementation
 {
     struct HomePage : HomePageT<HomePage>
     {
+        static DependencyProperty SelectedHandleProperty() { return selectedHandleProperty; }
+
         Collections::IObservableVector<Handle> Wrappers() { return wrappers; }
-        Handle SelectedHandle() const { return selectedHandle; }
+        Handle SelectedHandle() const { return unbox_value<Handle>(GetValue(selectedHandleProperty)); }
+        void SelectedHandle(Handle const& value) { SetValue(selectedHandleProperty, box_value(value)); }
 
         HomePage();
 
-        void OnPaneOpening(Controls::SplitView const& sender, IInspectable const& args);
-        void OnPaneClosing(Controls::SplitView const& sender, Controls::SplitViewPaneClosingEventArgs const& args);
-        void OnSelectionChanged(IInspectable const& sender, Controls::SelectionChangedEventArgs const& args);
-        void OnLoaded(IInspectable const& sender, RoutedEventArgs const& args);
-        void OnAddHandleClick(IInspectable const& sender, RoutedEventArgs const& args);
+        void OnPaneOpening(Controls::SplitView const&, IInspectable const&);
+        void OnPaneClosing(Controls::SplitView const&, Controls::SplitViewPaneClosingEventArgs const&);
+        void OnSelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const&);
+        void OnLoaded(IInspectable const&, RoutedEventArgs const&);
+        void OnAddHandleClick(IInspectable const&, RoutedEventArgs const&);
     private:
         Collections::IObservableVector<Handle> wrappers = multi_threaded_observable_vector<Handle>();
-        Handle selectedHandle = nullptr;
+
+        static const DependencyProperty selectedHandleProperty;
     };
 }
 

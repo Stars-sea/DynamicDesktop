@@ -6,6 +6,13 @@
 
 namespace winrt::DynamicDesktop::Pages::implementation
 {
+    const DependencyProperty HomePage::selectedHandleProperty = DependencyProperty::Register(
+        L"SelectedHandle",
+        xaml_typename<DynamicDesktop::Core::WindowHandleWrapper>(),
+        xaml_typename<DynamicDesktop::Pages::HomePage>(),
+        PropertyMetadata(nullptr)
+    );
+
     HomePage::HomePage()
     {
         InitializeComponent();
@@ -23,9 +30,8 @@ namespace winrt::DynamicDesktop::Pages::implementation
         AcrylicMask().Visibility(Visibility::Collapsed);
     }
 
-    void HomePage::OnSelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const& args)
+    void HomePage::OnSelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const&)
     {
-        selectedHandle = (*args.AddedItems().First()).as<Handle>();
         Root().IsPaneOpen(true);
     }
 

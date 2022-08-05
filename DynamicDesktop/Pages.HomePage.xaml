@@ -20,13 +20,13 @@
                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">
                     <LineBreak />
                     <Run Text="Title: " />
-                    <Run Text="{x:Bind SelectedHandle.WindowTitle}" />
+                    <Run Text="{x:Bind SelectedHandle.WindowTitle, Mode=OneWay}" />
                     <LineBreak />
                     <Run Text="Class: " />
-                    <Run Text="{x:Bind SelectedHandle.WindowClass}" />
+                    <Run Text="{x:Bind SelectedHandle.WindowClass, Mode=OneWay}" />
                     <LineBreak />
                     <Run Text="Handle: " />
-                    <Run Text="{x:Bind SelectedHandle.HexId}" />
+                    <Run Text="{x:Bind SelectedHandle.HexId, Mode=OneWay}" />
                 </TextBlock>
                 <!--#endregion-->
             </StackPanel>
@@ -57,7 +57,8 @@
                     <TextBlock Text="句柄" Margin="0 5"
                                Style="{ThemeResource SubtitleTextBlockStyle}" />
 
-                    <ListView
+                    <ListView 
+                        x:Name="HandlesList" SelectedItem="{x:Bind SelectedHandle, Mode=TwoWay}"
                         ItemsSource="{x:Bind Wrappers}" SelectionChanged="OnSelectionChanged"
                         CornerRadius="{ThemeResource ControlCornerRadius}"
                         Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">

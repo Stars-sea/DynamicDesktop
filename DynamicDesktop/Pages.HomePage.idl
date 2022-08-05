@@ -5,8 +5,10 @@ namespace DynamicDesktop.Pages
     [default_interface]
     runtimeclass HomePage : Microsoft.UI.Xaml.Controls.Page
     {
+        static Microsoft.UI.Xaml.DependencyProperty SelectedHandleProperty{ get; };
+
         Windows.Foundation.Collections.IObservableVector<DynamicDesktop.Core.WindowHandleWrapper> Wrappers{ get; };
-        DynamicDesktop.Core.WindowHandleWrapper SelectedHandle { get; };
+        DynamicDesktop.Core.WindowHandleWrapper SelectedHandle{ get; set; };
 
         HomePage();
     }

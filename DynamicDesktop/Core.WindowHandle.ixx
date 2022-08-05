@@ -1,15 +1,12 @@
 #include "pch.h"
-#include <functional>
 
 #pragma warning(disable: 5201)    // 关闭声明模块置顶提示
 export module DynamicDesktop.Core;
 #pragma warning(default: 5201)
 
 #include <list>
-#include <memory>
 #include <string>
 #include <sstream>
-#include <exception>
 
 namespace Utils {
 	struct PIDAndHWND
@@ -78,34 +75,10 @@ namespace Utils {
 	}
 }
 
-export class invaild_handle : public std::exception
-{
-public:
-	invaild_handle(size_t handle) : 
-		handle(handle), std::exception(("Invaild handle " + Utils::HandleToString<char>(handle)).c_str()) {}
-private:
-	const size_t handle;
-};
-
 export class WindowHandle
 {
 private:
-	typedef std::unique_ptr<WindowHandle> ptr_type;
-
 	HWND const hWnd;
-
-	static std::list<WindowHandle> instances;
-
-	// TODO: Need optimization!
-	// Each time the following functions are called, 
-	// this will be called. Wasted performance.
-	void ValidAndThrow() const
-	{
-		if (!Valid()) {
-			instances.remove(*this);
-			throw invaild_handle(hId);
-		}
-	}
 
 public:
 	const size_t hId;
@@ -121,13 +94,11 @@ public:
 					           FindWindow(name.c_str(), NULL)
 	) { }
 
-	~WindowHandle() { instances.remove(*this); }
-
 	bool Valid() const { return IsWindow(hWnd); }
 
 	bool Cover() const
 	{
-		ValidAndThrow();
+		if (!Valid()) return false;
 
 		HWND hProgman  = Utils::GetProgmanHWND();
 		HWND hWorkerW2 = Utils::GetDesktopWorkerW2();
@@ -154,40 +125,37 @@ public:
 		if (IsWindow(hWorkerW2))
 			ShowWindow(hWorkerW2, SW_SHOW);
 
-		ValidAndThrow();
-		SetParent(hWnd, NULL);
+		if (Valid()) SetParent(hWnd, NULL);
 	}
 
 	bool IsCovered() const
 	{
-		ValidAndThrow();
-		return GetParent(hWnd) == Utils::GetProgmanHWND();
+		return Valid() && GetParent(hWnd) == Utils::GetProgmanHWND();
 	}
 
 	std::wstring GetWindowTitle() const
 	{
-		ValidAndThrow();
+		if (!Valid()) return L"Invalid HWND 0x" + std::wstring(*this);
+
 		wchar_t str[128];
-		if (GetWindowText(hWnd, str, sizeof(str)))
-			return std::wstring(str);
-		throw std::exception("Failed to get window title.");
+		GetWindowText(hWnd, str, sizeof(str));
+		return std::wstring(str);
 	}
 
 	std::wstring GetWindowClass() const
 	{
-		ValidAndThrow();
+		if (!Valid()) return L"Invalid HWND 0x" + std::wstring(*this);
+
 		wchar_t str[128];
-		if (RealGetWindowClass(hWnd, str, sizeof(str)))
-			return std::wstring(str);
-		throw std::exception("Failed to get window class.");
+		RealGetWindowClass(hWnd, str, sizeof(str));
+		return std::wstring(str);
 	}
 
 	HICON GetWindowIcon() const
 	{
-		ValidAndThrow();
-		ULONG_PTR ptr = GetClassLongPtr(hWnd, GCLP_HICON);
-		if (ptr) return (HICON)ptr;
-		throw std::exception("Failed to get window icon.");
+		if (!Valid()) return nullptr;
+
+		return (HICON)GetClassLongPtr(hWnd, GCLP_HICON);
 	}
 
 	bool operator==(const WindowHandle& other) const
@@ -200,5 +168,3 @@ public:
 	operator std::string()  const { return Utils::HandleToString<char>(hId); }
 	operator std::wstring() const { return Utils::HandleToString<wchar_t>(hId); }
 };
-
-std::list<WindowHandle> WindowHandle::instances;
