@@ -7,9 +7,12 @@ namespace DynamicDesktop.Pages
     {
         static Microsoft.UI.Xaml.DependencyProperty SelectedHandleProperty{ get; };
 
-        Windows.Foundation.Collections.IObservableVector<DynamicDesktop.Core.WindowHandleWrapper> Wrappers{ get; };
+        Windows.Foundation.Collections.IObservableVector<DynamicDesktop.Core.WindowHandleWrapper> Handles{ get; };
         DynamicDesktop.Core.WindowHandleWrapper SelectedHandle{ get; set; };
 
         HomePage();
+
+        Boolean AppendHandle(DynamicDesktop.Core.WindowHandleWrapper _handle);
+        Boolean RemoveHandle(DynamicDesktop.Core.WindowHandleWrapper _handle);
     }
 }

@@ -20,6 +20,31 @@ namespace winrt::DynamicDesktop::Pages::implementation
         InitializeComponent();
     }
 
+    bool HomePage::AppendHandle(const Handle& handle)
+    {
+        if (handle == nullptr) return false;
+
+        for (Handle&& current : handles) {
+            if (handle.Equals(current))
+                return false;
+        }
+        handles.Append(handle);
+        return true;
+    }
+
+    bool HomePage::RemoveHandle(const Handle& handle)
+    {
+        if (handle == nullptr) return false;
+
+        for (uint32_t i = 0; i < handles.Size(); i++) {
+            if (handle == handles.GetAt(i)) {
+                handles.RemoveAt(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
     void HomePage::OnPaneOpening(Controls::SplitView const&, IInspectable const&)
     {
         AcrylicMask().Visibility(Visibility::Visible);
@@ -38,14 +63,8 @@ namespace winrt::DynamicDesktop::Pages::implementation
 
     void HomePage::OnDeleteHandleClick(IInspectable const& sender, RoutedEventArgs const&)
     {
-        Handle handle  = sender.as<Controls::Button>().Tag().as<Handle>();
-        auto   handles = Wrappers();
-        for (uint32_t i = 0; i < handles.Size(); i++) {
-            if (handle == handles.GetAt(i)) {
-                handles.RemoveAt(i);
-                break;
-            }
-        }
+        auto button = sender.as<Controls::Button>();
+        RemoveHandle(button.Tag().as<Handle>());
     }
 
     void HomePage::OnItemClick(IInspectable const&, Controls::ItemClickEventArgs const&)
@@ -66,7 +85,7 @@ namespace winrt::DynamicDesktop::Pages::implementation
     void HomePage::OnAddHandleClick(IInspectable const&, RoutedEventArgs const&)
     {
         // Test
-        Handle wrapper(L"WinUI 3 Gallery", true);
-        Wrappers().Append(wrapper);
+        Handle handle(L"WinUI 3 Gallery", true);
+        AppendHandle(handle);
     }
 }

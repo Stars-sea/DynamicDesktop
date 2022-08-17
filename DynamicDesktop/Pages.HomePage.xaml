@@ -21,13 +21,17 @@
                     </TextBlock>
 
                     <Button
-                        Click="OnDeleteHandleClick"
+                        Click="OnDeleteHandleClick" Margin="0 0 15 0"
                         Width="32" Height="32" Padding="8" Tag="{x:Bind}"
                         VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Viewbox>
                             <SymbolIcon Symbol="Delete" />
                         </Viewbox>
                     </Button>
+
+                    <Viewbox Width="5.5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Path Stroke="{ThemeResource SystemControlForegroundBaseHighBrush}" Data="M 0,0 6,6 0,12" />
+                    </Viewbox>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
@@ -72,7 +76,7 @@
                                Style="{ThemeResource SubtitleTextBlockStyle}" />
 
                     <ListView
-                        ItemsSource="{x:Bind Wrappers}"
+                        ItemsSource="{x:Bind Handles}"
                         IsItemClickEnabled="True" ItemClick="OnItemClick"
                         CornerRadius="{ThemeResource ControlCornerRadius}"
                         SelectedItem="{x:Bind SelectedHandle, Mode=TwoWay}"

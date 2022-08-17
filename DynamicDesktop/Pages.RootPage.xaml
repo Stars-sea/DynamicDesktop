@@ -2,7 +2,7 @@
     x:Class="DynamicDesktop.Pages.RootPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DynamicDesktop"
+    xmlns:pages="using:DynamicDesktop.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -12,8 +12,17 @@
         IsBackButtonVisible="Collapsed"
         SelectionChanged="NavigationItemSelected">
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="Home" Content="主页" Tag="HomePage" IsSelected="True" />
-            <NavigationViewItem Icon="Account" Content="关于" Tag="AboutPage" />
+            <NavigationViewItem Icon="Home" Content="主页" IsSelected="True">
+                <NavigationViewItem.Tag>
+                    <pages:HomePage />
+                </NavigationViewItem.Tag>
+            </NavigationViewItem>
+
+            <NavigationViewItem Icon="Account" Content="关于">
+                <NavigationViewItem.Tag>
+                    <pages:AboutPage />
+                </NavigationViewItem.Tag>
+            </NavigationViewItem>
         </NavigationView.MenuItems>
 
         <Frame x:Name="contentFrame" x:FieldModifier="Private" />

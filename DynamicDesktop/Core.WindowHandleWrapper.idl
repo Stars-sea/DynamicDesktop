@@ -16,5 +16,7 @@ namespace DynamicDesktop.Core
         void Uncover();
         
         Boolean Valid();
+
+        Boolean Equals(Object other);
     }
 }

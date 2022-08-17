@@ -25,6 +25,7 @@ namespace winrt::DynamicDesktop::Core::implementation
 		bool Valid() const;
 
 		hstring ToString() const;
+		bool Equals(const IInspectable& other) const;
 	private:
 		const WindowHandle handle;
 	};

@@ -17,4 +17,10 @@ namespace winrt::DynamicDesktop::Core::implementation
 	bool WindowHandleWrapper::Valid() const { return handle.Valid(); }
 
 	hstring WindowHandleWrapper::ToString() const { return std::wstring(handle).c_str(); }
+
+	bool WindowHandleWrapper::Equals(const IInspectable& other) const
+	{
+		auto wrapper = other.try_as<Core::WindowHandleWrapper>();
+		return wrapper != nullptr && HId() == wrapper.HId();
+	}
 }
