@@ -20,6 +20,7 @@ namespace winrt::DynamicDesktop::Pages::implementation
         NavigationView const&, 
         NavigationViewSelectionChangedEventArgs const& args
     ) {
+        // TODO: 导航会导致 HomePage 数据丢失
         using Frame = Controls::Frame;
         using namespace Windows::UI::Xaml::Interop;
 

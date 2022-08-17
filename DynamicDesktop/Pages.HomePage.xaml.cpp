@@ -4,12 +4,14 @@
 #include "Pages.HomePage.g.cpp"
 #endif
 
+#include "Components.WindowSettings.xaml.h"
+
 namespace winrt::DynamicDesktop::Pages::implementation
 {
     const DependencyProperty HomePage::selectedHandleProperty = DependencyProperty::Register(
         L"SelectedHandle",
-        xaml_typename<DynamicDesktop::Core::WindowHandleWrapper>(),
-        xaml_typename<DynamicDesktop::Pages::HomePage>(),
+        xaml_typename<Handle>(),
+        xaml_typename<Pages::HomePage>(),
         PropertyMetadata(nullptr)
     );
 
@@ -28,10 +30,32 @@ namespace winrt::DynamicDesktop::Pages::implementation
     {
         AcrylicMask().Opacity(0);
         AcrylicMask().Visibility(Visibility::Collapsed);
+
+        for (UIElement&& e : SideBar().Children()) {
+            e.Visibility(Visibility::Collapsed);
+        }
     }
 
-    void HomePage::OnSelectionChanged(IInspectable const&, Controls::SelectionChangedEventArgs const&)
+    void HomePage::OnDeleteHandleClick(IInspectable const& sender, RoutedEventArgs const&)
     {
+        Handle handle  = sender.as<Controls::Button>().Tag().as<Handle>();
+        auto   handles = Wrappers();
+        for (uint32_t i = 0; i < handles.Size(); i++) {
+            if (handle == handles.GetAt(i)) {
+                handles.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
+    void HomePage::OnItemClick(IInspectable const&, Controls::ItemClickEventArgs const&)
+    {
+        for (UIElement&& e : SideBar().Children()) {
+            if (e.try_as<Components::WindowSettings>() != nullptr) {
+                e.Visibility(Visibility::Visible);
+                break;
+            }
+        }
         Root().IsPaneOpen(true);
     }
 

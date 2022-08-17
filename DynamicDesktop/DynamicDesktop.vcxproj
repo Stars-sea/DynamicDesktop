@@ -129,6 +129,10 @@
       <DependentUpon>Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Components.WindowSettings.xaml.h">
+      <DependentUpon>Components.WindowSettings.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -140,6 +144,9 @@
     </Page>
     <Page Include="MainWindow.xaml" />
     <Page Include="Pages.RootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components.WindowSettings.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -171,6 +178,10 @@
       <DependentUpon>Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Components.WindowSettings.xaml.cpp">
+      <DependentUpon>Components.WindowSettings.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Pages.AboutPage.idl">
@@ -194,6 +205,10 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Core.WindowHandleWrapper.idl">
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Components.WindowSettings.idl">
+      <DependentUpon>Components.WindowSettings.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>

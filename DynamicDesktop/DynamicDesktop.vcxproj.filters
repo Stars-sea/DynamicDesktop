@@ -11,6 +11,9 @@
     <Page Include="Pages.AboutPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="Components.WindowSettings.xaml">
+      <Filter>Components</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -28,15 +31,9 @@
     <ClCompile Include="Core.WindowHandleWrapper.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core.WindowHandleContainer.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Core.WindowHandleContainer.h">
-      <Filter>Core</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -73,6 +70,9 @@
     </Filter>
     <Filter Include="Application">
       <UniqueIdentifier>{6a8b30a7-d571-4e0b-b73a-7d716d8fa208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{4d4077b2-7061-4b52-bfba-2a4f54e704cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,14 @@
+import "Core.WindowHandleWrapper.idl";
+
+namespace DynamicDesktop.Components
+{
+    [default_interface]
+    runtimeclass WindowSettings : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        static Microsoft.UI.Xaml.DependencyProperty InnerHandleProperty{ get; };
+
+        DynamicDesktop.Core.WindowHandleWrapper InnerHandle{ get; set; };
+
+        WindowSettings();
+    }
+}

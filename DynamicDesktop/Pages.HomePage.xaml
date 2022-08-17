@@ -5,7 +5,33 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:core="using:DynamicDesktop.Core"
+    xmlns:components="using:DynamicDesktop.Components"
     mc:Ignorable="d" Loaded="OnLoaded">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="HandleListViewTemplate" x:DataType="core:WindowHandleWrapper">
+                <Grid>
+                    <TextBlock Padding="0 5 0 10" Style="{ThemeResource CaptionTextBlockStyle}">
+                        <Run FontSize="16" Text="{x:Bind WindowTitle}" />
+                        <LineBreak />
+                        <Run FontSize="12" Text="{x:Bind WindowClass}" Foreground="{ThemeResource TextFillColorSecondary}" />
+                        <LineBreak />
+                        <Run FontSize="12" Text="{x:Bind HexId}" Foreground="{ThemeResource TextFillColorSecondary}" />
+                    </TextBlock>
+
+                    <Button
+                        Click="OnDeleteHandleClick"
+                        Width="32" Height="32" Padding="8" Tag="{x:Bind}"
+                        VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Viewbox>
+                            <SymbolIcon Symbol="Delete" />
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <SplitView 
         x:Name="Root" x:FieldModifier="Private"
@@ -13,23 +39,11 @@
         PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
         PaneOpening="OnPaneOpening" PaneClosing="OnPaneClosing">
         <SplitView.Pane>
-            <StackPanel Padding="10 3">
-                <TextBlock Text="窗口设置" Style="{ThemeResource SubtitleTextBlockStyle}" />
-                
-                <!--#region WindowInfo -->
-                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">
-                    <LineBreak />
-                    <Run Text="Title: " />
-                    <Run Text="{x:Bind SelectedHandle.WindowTitle, Mode=OneWay}" />
-                    <LineBreak />
-                    <Run Text="Class: " />
-                    <Run Text="{x:Bind SelectedHandle.WindowClass, Mode=OneWay}" />
-                    <LineBreak />
-                    <Run Text="Handle: " />
-                    <Run Text="{x:Bind SelectedHandle.HexId, Mode=OneWay}" />
-                </TextBlock>
-                <!--#endregion-->
-            </StackPanel>
+            <Grid x:Name="SideBar" x:FieldModifier="Private">
+                <!-- TODO: 为啥自定义类型不能命名? -->
+                <components:WindowSettings
+                    InnerHandle="{x:Bind SelectedHandle, Mode=OneWay}" />
+            </Grid>
         </SplitView.Pane>
 
         <Grid>
@@ -57,27 +71,17 @@
                     <TextBlock Text="句柄" Margin="0 5"
                                Style="{ThemeResource SubtitleTextBlockStyle}" />
 
-                    <ListView 
-                        x:Name="HandlesList" SelectedItem="{x:Bind SelectedHandle, Mode=TwoWay}"
-                        ItemsSource="{x:Bind Wrappers}" SelectionChanged="OnSelectionChanged"
+                    <ListView
+                        ItemsSource="{x:Bind Wrappers}"
+                        IsItemClickEnabled="True" ItemClick="OnItemClick"
                         CornerRadius="{ThemeResource ControlCornerRadius}"
+                        SelectedItem="{x:Bind SelectedHandle, Mode=TwoWay}"
+                        ItemTemplate="{StaticResource HandleListViewTemplate}"
                         Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="core:WindowHandleWrapper">
-                                <Grid Padding="0 0 0 5">
-                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">
-                                        <Run FontSize="16" Text="{x:Bind WindowTitle}" />
-                                        <LineBreak />
-                                        <Run FontSize="12" Text="{x:Bind WindowClass}" Foreground="{ThemeResource TextFillColorSecondary}" />
-                                        <LineBreak />
-                                        <Run FontSize="12" Text="{x:Bind HexId}" Foreground="{ThemeResource TextFillColorSecondary}" />
-                                    </TextBlock>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        
                         <ListView.Footer>
-                            <Button Content="添加窗口句柄" Margin="5" Click="OnAddHandleClick" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="5" Content="添加窗口句柄" Click="OnAddHandleClick" />
+                            </StackPanel>
                         </ListView.Footer>
                     </ListView>
                 </StackPanel>
