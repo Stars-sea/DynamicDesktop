@@ -24,9 +24,19 @@ namespace winrt::DynamicDesktop::Pages::implementation
     {
         if (handle == nullptr) return false;
 
+        if (!handle.Valid()) {
+            Tip().Subtitle(L"加入无效句柄");
+            Tip().IsOpen(true);
+            return false;
+        }
+
         for (Handle&& current : handles) {
-            if (handle.Equals(current))
+            if (handle.Equals(current)) {
+                Tip().Subtitle(L"已存在相同句柄");
+                Tip().IsOpen(true);
+                SelectedHandle(current);
                 return false;
+            }
         }
         handles.Append(handle);
         return true;
@@ -67,8 +77,12 @@ namespace winrt::DynamicDesktop::Pages::implementation
         RemoveHandle(button.Tag().as<Handle>());
     }
 
-    void HomePage::OnItemClick(IInspectable const&, Controls::ItemClickEventArgs const&)
+    void HomePage::OnItemClick(IInspectable const&, Controls::ItemClickEventArgs const& args)
     {
+        if (SelectedHandle() != args.ClickedItem())
+            return;
+
+        // TODO: 找到直接打开的方法, XAML 给自定义元素命名会报错
         for (UIElement&& e : SideBar().Children()) {
             if (e.try_as<Components::WindowSettings>() != nullptr) {
                 e.Visibility(Visibility::Visible);

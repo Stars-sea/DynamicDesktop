@@ -7,6 +7,7 @@ export module DynamicDesktop.Core;
 #include <list>
 #include <string>
 #include <sstream>
+#include <Windows.h>
 
 namespace Utils {
 	struct PIDAndHWND
