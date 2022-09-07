@@ -39,7 +39,7 @@
 
     <SplitView 
         x:Name="Root" x:FieldModifier="Private"
-        PanePlacement="Right" IsPaneOpen="False"
+        PanePlacement="Right" IsPaneOpen="False" OpenPaneLength="450"
         PaneBackground="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
         PaneOpening="OnPaneOpening" PaneClosing="OnPaneClosing">
         <SplitView.Pane>
@@ -83,9 +83,14 @@
                         ItemTemplate="{StaticResource HandleListViewTemplate}"
                         Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}">
                         <ListView.Footer>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Margin="5" Content="添加窗口句柄" Click="OnAddHandleClick" />
-                            </StackPanel>
+                            <Button Margin="5" Click="OnAddHandleClick">
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Height="15" Margin="0 1 5 0">
+                                        <SymbolIcon Symbol="Add" />
+                                    </Viewbox>
+                                    <TextBlock Text="添加窗口句柄" />
+                                </StackPanel>
+                            </Button>
                         </ListView.Footer>
                     </ListView>
                 </StackPanel>
@@ -102,10 +107,10 @@
             </Rectangle>
 
             <StackPanel
-                x:Name="InfoContainer" x:FieldModifier="Private" Margin="16" Width="200"
+                x:Name="InfoContainer" x:FieldModifier="Private" Margin="16" Width="250"
                 Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <StackPanel.ChildrenTransitions>
-                    <PaneThemeTransition />
+                    <ContentThemeTransition />
                 </StackPanel.ChildrenTransitions>
             </StackPanel>
         </Grid>
