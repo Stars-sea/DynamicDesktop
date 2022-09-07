@@ -30,16 +30,17 @@ namespace winrt::DynamicDesktop::Pages::implementation
         bool RemoveHandle(const Handle& handle);
 
         void OnPaneOpening(Controls::SplitView const&, IInspectable const&);
-        void OnPaneClosing(Controls::SplitView const&, Controls::SplitViewPaneClosingEventArgs const&);
+        fire_and_forget OnPaneClosing(Controls::SplitView const&, Controls::SplitViewPaneClosingEventArgs const&);
         void OnDeleteHandleClick(IInspectable const&, RoutedEventArgs const&);
         void OnItemClick(IInspectable const&, Controls::ItemClickEventArgs const&);
-        void OnLoaded(IInspectable const&, RoutedEventArgs const&);
         void OnAddHandleClick(IInspectable const&, RoutedEventArgs const&);
     private:
         static const DependencyProperty selectedHandleProperty;
         static const DependencyProperty hasSelectedHandleProperty;
 
         Collections::IObservableVector<Handle> handles = multi_threaded_observable_vector<Handle>();
+
+        fire_and_forget ShowTempMessage(const Controls::InfoBar& info);
     };
 }
 

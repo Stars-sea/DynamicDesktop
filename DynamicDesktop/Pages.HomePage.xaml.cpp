@@ -4,6 +4,8 @@
 #include "Pages.HomePage.g.cpp"
 #endif
 
+#include <chrono>
+
 #include "Components.WindowSettings.xaml.h"
 
 namespace winrt::DynamicDesktop::Pages::implementation
@@ -22,19 +24,24 @@ namespace winrt::DynamicDesktop::Pages::implementation
 
     bool HomePage::AppendHandle(const Handle& handle)
     {
-        if (handle == nullptr) return false;
-
-        if (!handle.Valid()) {
-            Tip().Subtitle(L"加入无效句柄");
-            Tip().IsOpen(true);
+        if (handle == nullptr || !handle.Valid()) {
+            Controls::InfoBar info;
+            info.Message(L"加入无效句柄");
+            info.Severity(Controls::InfoBarSeverity::Warning);
+            ShowTempMessage(info);
+            
             return false;
         }
-
+        
         for (Handle&& current : handles) {
             if (handle.Equals(current)) {
-                Tip().Subtitle(L"已存在相同句柄");
-                Tip().IsOpen(true);
+                Controls::InfoBar info;
+                info.Message(L"已存在相同句柄");
+                info.Severity(Controls::InfoBarSeverity::Warning);
+                ShowTempMessage(info);
+
                 SelectedHandle(current);
+
                 return false;
             }
         }
@@ -61,9 +68,16 @@ namespace winrt::DynamicDesktop::Pages::implementation
         AcrylicMask().Opacity(1);
     }
 
-    void HomePage::OnPaneClosing(Controls::SplitView const&, Controls::SplitViewPaneClosingEventArgs const&)
+    fire_and_forget HomePage::OnPaneClosing(Controls::SplitView const&, Controls::SplitViewPaneClosingEventArgs const&)
     {
+        using namespace std::chrono_literals;
+
+        apartment_context context;
         AcrylicMask().Opacity(0);
+
+        co_await resume_after(300ms);
+        co_await context;
+
         AcrylicMask().Visibility(Visibility::Collapsed);
 
         for (UIElement&& e : SideBar().Children()) {
@@ -92,14 +106,34 @@ namespace winrt::DynamicDesktop::Pages::implementation
         Root().IsPaneOpen(true);
     }
 
-    void HomePage::OnLoaded(IInspectable const&, RoutedEventArgs const&)
-    {
-    }
-
     void HomePage::OnAddHandleClick(IInspectable const&, RoutedEventArgs const&)
     {
         // Test
         Handle handle(L"WinUI 3 Gallery", true);
         AppendHandle(handle);
+    }
+
+    fire_and_forget HomePage::ShowTempMessage(const Controls::InfoBar& info)
+    {
+        using namespace std::chrono_literals;
+
+        Controls::UIElementCollection collection = InfoContainer().Children();
+
+        collection.Append(info);
+        info.IsOpen(true);
+
+        apartment_context context;
+        co_await resume_after(2s);
+        co_await context;
+
+        // TODO: 此方法会报错, 只好无脑写...
+        /*
+        for (uint32_t i = 0; i < collection.Size(); i++) {
+            if (info == collection.GetAt(i)) {
+                collection.RemoveAt(i);
+                break;
+            }
+        } */
+        collection.RemoveAtEnd();
     }
 }

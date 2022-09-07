@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:core="using:DynamicDesktop.Core"
     xmlns:components="using:DynamicDesktop.Components"
-    mc:Ignorable="d" Loaded="OnLoaded">
+    mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -101,8 +101,13 @@
                 </Rectangle.OpacityTransition>
             </Rectangle>
 
-            <TeachingTip x:Name="Tip" x:FieldModifier="Private"
-                         IsLightDismissEnabled="True" PreferredPlacement="Bottom" />
+            <StackPanel
+                x:Name="InfoContainer" x:FieldModifier="Private" Margin="16" Width="200"
+                Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <StackPanel.ChildrenTransitions>
+                    <PaneThemeTransition />
+                </StackPanel.ChildrenTransitions>
+            </StackPanel>
         </Grid>
     </SplitView>
 </Page>
