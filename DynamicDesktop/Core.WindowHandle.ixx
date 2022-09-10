@@ -1,82 +1,11 @@
 #include "pch.h"
-
-#pragma warning(disable: 5201)    // 关闭声明模块置顶提示
-export module DynamicDesktop.Core;
-#pragma warning(default: 5201)
-
-#include <list>
 #include <string>
-#include <sstream>
 #include <Windows.h>
 
-namespace Utils {
-	struct PIDAndHWND
-	{
-		DWORD pid;
-		HWND hWnd;
-	};
+export module DynamicDesktop.Core.Handle;
+import DynamicDesktop.Core.HandleHelper;
 
-	HWND GetProgmanHWND() { return FindWindow(L"Progaman", NULL); }
-
-	HWND GetDesktopWorkerW1() {
-		HWND hWork1 = NULL;
-		EnumWindows([](HWND hWnd, LPARAM lParam) -> BOOL {
-			if (FindWindowEx(hWnd, NULL, L"SHELLDLL_DefView", NULL)) {
-				wchar_t className[32];
-				if (GetClassName(hWnd, className, 31) &&
-					std::wstring(className) == L"WorkerW"
-					) {
-					*(HWND*)lParam = hWnd;
-					return FALSE;
-				}
-			}
-			return TRUE;
-			}, (LPARAM)&hWork1);
-		return hWork1;
-	}
-
-	HWND GetDesktopWorkerW2() {
-		HWND hWorkerW1 = GetDesktopWorkerW1();
-		if (!IsWindow(hWorkerW1)) return NULL;
-
-		HWND hWorkWWnd = FindWindowEx(0, hWorkerW1, L"WorkerW", NULL);
-		return hWorkWWnd;
-	}
-
-	HWND GetHWNDFromPID(const DWORD pid) {
-		PIDAndHWND pah{ pid, NULL };
-		EnumWindows([](HWND hWnd, LPARAM lParam) -> BOOL {
-			PIDAndHWND pah = *((PIDAndHWND*)lParam);
-
-			DWORD pid;
-			GetWindowThreadProcessId(pah.hWnd, &pid);
-			if (pah.pid == pid) {
-				pah.hWnd = hWnd;
-				return FALSE;
-			}
-			return TRUE;
-			}, (LPARAM)&pah);
-		return pah.hWnd;
-	}
-
-	template <typename T>
-	concept is_char_ele = std::_Is_any_of_v<T, char, wchar_t>;
-
-	template <is_char_ele Ele>
-	std::basic_string<Ele> HandleToString(const size_t& handle)
-	{
-		using namespace std;
-		basic_stringstream<Ele> ss;
-		ss	<< setiosflags(ios::right)
-			<< setw(16)
-			<< setfill<Ele>('0')
-			<< hex << uppercase
-			<< handle;
-		return ss.str();
-	}
-}
-
-export class WindowHandle
+export class NativeWindowHandle
 {
 private:
 	HWND const hWnd;
@@ -84,14 +13,14 @@ private:
 public:
 	const size_t hId;
 
-	WindowHandle(const HWND& hWnd) :
+	NativeWindowHandle(const HWND& hWnd) :
 		hWnd(hWnd), hId(size_t(hWnd)) { }
 
-	WindowHandle(const size_t& hId) :
+	NativeWindowHandle(const size_t& hId) :
 		hWnd(HWND(hId)), hId(hId) { }
 
-	WindowHandle(const std::wstring& name, bool isTitle) : 
-		WindowHandle(isTitle ? FindWindow(NULL, name.c_str()) :
+	NativeWindowHandle(const std::wstring& name, bool isTitle) : 
+		NativeWindowHandle(isTitle ? FindWindow(NULL, name.c_str()) :
 					           FindWindow(name.c_str(), NULL)
 	) { }
 
@@ -101,8 +30,8 @@ public:
 	{
 		if (!Valid()) return false;
 
-		HWND hProgman  = Utils::GetProgmanHWND();
-		HWND hWorkerW2 = Utils::GetDesktopWorkerW2();
+		HWND hProgman  = GetProgmanHWND();
+		HWND hWorkerW2 = GetDesktopWorkerW2();
 
 		if (!hWorkerW2)
 			SendMessageTimeout(hProgman, 0x52C, NULL, NULL, NULL, 100, NULL);
@@ -110,7 +39,7 @@ public:
 		if (!SetParent(hWnd, hProgman))
 			return false;
 
-		hWorkerW2 = Utils::GetDesktopWorkerW2();
+		hWorkerW2 = GetDesktopWorkerW2();
 		if (hWorkerW2) {
 			ShowWindow(hWorkerW2, SW_HIDE);
 			return true;
@@ -122,7 +51,7 @@ public:
 
 	void Uncover() const
 	{
-		HWND hWorkerW2 = Utils::GetDesktopWorkerW2();
+		HWND hWorkerW2 = GetDesktopWorkerW2();
 		if (IsWindow(hWorkerW2))
 			ShowWindow(hWorkerW2, SW_SHOW);
 
@@ -131,7 +60,7 @@ public:
 
 	bool IsCovered() const
 	{
-		return Valid() && GetParent(hWnd) == Utils::GetProgmanHWND();
+		return Valid() && GetParent(hWnd) == GetProgmanHWND();
 	}
 
 	std::wstring GetWindowTitle() const
@@ -159,13 +88,13 @@ public:
 		return (HICON)GetClassLongPtr(hWnd, GCLP_HICON);
 	}
 
-	bool operator==(const WindowHandle& other) const
+	bool operator==(const NativeWindowHandle& other) const
 	{
 		if (this == &other) return true;
 		if (hWnd == other.hWnd) return true;
 		return false;
 	}
 
-	operator std::string()  const { return Utils::HandleToString<char>(hId); }
-	operator std::wstring() const { return Utils::HandleToString<wchar_t>(hId); }
+	operator std::string()  const { return "0x"  + HandleToString<char>(hId);    }
+	operator std::wstring() const { return L"0x" + HandleToString<wchar_t>(hId); }
 };

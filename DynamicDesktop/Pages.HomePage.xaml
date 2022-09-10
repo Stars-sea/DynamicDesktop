@@ -10,7 +10,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="HandleListViewTemplate" x:DataType="core:WindowHandleWrapper">
+            <DataTemplate x:Key="HandleListViewTemplate" x:DataType="core:WindowHandle">
                 <Grid>
                     <TextBlock Padding="0 5 0 10" Style="{ThemeResource CaptionTextBlockStyle}">
                         <Run FontSize="16" Text="{x:Bind WindowTitle}" />

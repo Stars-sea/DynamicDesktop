@@ -12,7 +12,7 @@ namespace winrt::DynamicDesktop::Components::implementation
 {
     const DependencyProperty WindowSettings::innerHandleProperty = DependencyProperty::Register(
         L"InnerHandle",
-        xaml_typename<DynamicDesktop::Core::WindowHandleWrapper>(),
+        xaml_typename<DynamicDesktop::Core::WindowHandle>(),
         xaml_typename<DynamicDesktop::Components::WindowSettings>(),
         PropertyMetadata{ nullptr }
     );

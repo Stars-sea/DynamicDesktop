@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include "Pages.HomePage.g.h"
-#include "Core.WindowHandleWrapper.h"
+#include "Core.WindowHandle.h"
 
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Microsoft::UI::Xaml;
 
-using Handle = DynamicDesktop::Core::WindowHandleWrapper;
+using Handle = DynamicDesktop::Core::WindowHandle;
 
 namespace winrt::DynamicDesktop::Pages::implementation
 {

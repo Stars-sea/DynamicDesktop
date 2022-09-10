@@ -1,4 +1,4 @@
-import "Core.WindowHandleWrapper.idl";
+import "Core.WindowHandle.idl";
 
 namespace DynamicDesktop.Pages
 {
@@ -7,12 +7,12 @@ namespace DynamicDesktop.Pages
     {
         static Microsoft.UI.Xaml.DependencyProperty SelectedHandleProperty{ get; };
 
-        Windows.Foundation.Collections.IObservableVector<DynamicDesktop.Core.WindowHandleWrapper> Handles{ get; };
-        DynamicDesktop.Core.WindowHandleWrapper SelectedHandle{ get; set; };
+        Windows.Foundation.Collections.IObservableVector<DynamicDesktop.Core.WindowHandle> Handles{ get; };
+        DynamicDesktop.Core.WindowHandle SelectedHandle{ get; set; };
 
         HomePage();
 
-        Boolean AppendHandle(DynamicDesktop.Core.WindowHandleWrapper _handle);
-        Boolean RemoveHandle(DynamicDesktop.Core.WindowHandleWrapper _handle);
+        Boolean AppendHandle(DynamicDesktop.Core.WindowHandle _handle);
+        Boolean RemoveHandle(DynamicDesktop.Core.WindowHandle _handle);
     }
 }

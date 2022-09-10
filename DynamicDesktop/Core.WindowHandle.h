@@ -1,39 +1,40 @@
 #pragma once
 
-#include "Core.WindowHandleWrapper.g.h"
+#include "Core.WindowHandle.g.h"
 
-import DynamicDesktop.Core;
+import DynamicDesktop.Core.Handle;
 
 namespace winrt::DynamicDesktop::Core::implementation
 {
-	struct WindowHandleWrapper : WindowHandleWrapperT<WindowHandleWrapper>
+	struct WindowHandle : WindowHandleT<WindowHandle>
 	{
 	public:
 		size_t  HId()         const { return handle.hId; }
-		hstring HexId()       const { return L"0x" + ToString(); }
+		hstring HexId()       const { return ToString(); }
 		bool    IsCovered()   const { return handle.IsCovered(); }
 		hstring WindowTitle() const { return hstring(handle.GetWindowTitle().c_str()); }
 		hstring WindowClass() const { return hstring(handle.GetWindowClass().c_str()); }
 		size_t  WindowIcon()  const { return (size_t)handle.GetWindowIcon();  }
 
-		WindowHandleWrapper(const size_t& hId);
-		WindowHandleWrapper(const hstring& name, bool isTitle);
-
+		WindowHandle(const NativeWindowHandle& handle) : handle(handle) { }
+		WindowHandle(const size_t& hId);
+		WindowHandle(const hstring& name, bool isTitle);
+		
 		bool Cover() const;
 		void Uncover() const;
-
+		
 		bool Valid() const;
 
 		hstring ToString() const;
 		bool Equals(const IInspectable& other) const;
 	private:
-		const WindowHandle handle;
+		const NativeWindowHandle handle;
 	};
 }
 
 namespace winrt::DynamicDesktop::Core::factory_implementation
 {
-	struct WindowHandleWrapper : WindowHandleWrapperT<WindowHandleWrapper, implementation::WindowHandleWrapper>
+	struct WindowHandle : WindowHandleT<WindowHandle, implementation::WindowHandle>
 	{
 	};
 }

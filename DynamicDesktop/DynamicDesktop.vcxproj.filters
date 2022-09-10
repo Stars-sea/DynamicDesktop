@@ -18,22 +18,37 @@
   <ItemGroup>
     <Midl Include="App.idl" />
     <Midl Include="MainWindow.idl" />
-    <Midl Include="Core.WindowHandleWrapper.idl">
+    <Midl Include="Core.WindowHandle.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core.BackgroundInfo.idl">
       <Filter>Core</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Core.WindowHandle.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
     <ClCompile Include="Core.WindowHandle.ixx">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core.WindowHandleWrapper.cpp">
+    <ClCompile Include="Core.BackgroundInfo.ixx">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.HandleHelper.ixx">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.BackgroundInfo.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Core.BackgroundInfo.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

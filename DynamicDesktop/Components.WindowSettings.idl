@@ -1,4 +1,4 @@
-import "Core.WindowHandleWrapper.idl";
+import "Core.WindowHandle.idl";
 
 namespace DynamicDesktop.Components
 {
@@ -7,7 +7,7 @@ namespace DynamicDesktop.Components
     {
         static Microsoft.UI.Xaml.DependencyProperty InnerHandleProperty{ get; };
 
-        DynamicDesktop.Core.WindowHandleWrapper InnerHandle{ get; set; };
+        DynamicDesktop.Core.WindowHandle InnerHandle{ get; set; };
 
         WindowSettings();
     }

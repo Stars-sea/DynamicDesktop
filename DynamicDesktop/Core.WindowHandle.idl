@@ -1,6 +1,6 @@
 namespace DynamicDesktop.Core
 {
-    runtimeclass WindowHandleWrapper : Windows.Foundation.IStringable
+    runtimeclass WindowHandle : Windows.Foundation.IStringable
     {
         UInt64  HId         { get; };
         String  HexId       { get; };
@@ -9,8 +9,8 @@ namespace DynamicDesktop.Core
         String  WindowClass { get; };
         UInt64  WindowIcon  { get; };
 
-        WindowHandleWrapper(Int32 hId);
-        WindowHandleWrapper(String name, Boolean isTitle);
+        WindowHandle(Int32 hId);
+        WindowHandle(String name, Boolean isTitle);
 
         Boolean Cover();
         void Uncover();

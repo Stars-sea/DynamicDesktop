@@ -86,7 +86,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>COM_NO_WINDOWS_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -106,8 +106,12 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core.WindowHandleWrapper.h">
-      <DependentUpon>Core.WindowHandleWrapper.idl</DependentUpon>
+    <ClInclude Include="Core.BackgroundInfo.h">
+      <DependentUpon>Core.BackgroundInfo.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Core.WindowHandle.h">
+      <DependentUpon>Core.WindowHandle.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Pages.AboutPage.xaml.h">
@@ -151,9 +155,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core.WindowHandle.ixx" />
-    <ClCompile Include="Core.WindowHandleWrapper.cpp">
-      <DependentUpon>Core.WindowHandleWrapper.idl</DependentUpon>
+    <ClCompile Include="Core.BackgroundInfo.cpp">
+      <DependentUpon>Core.BackgroundInfo.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Core.BackgroundInfo.ixx">
+      <DependentUpon>Core.BackgroundInfo.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Core.HandleHelper.ixx" />
+    <ClCompile Include="Core.WindowHandle.ixx">
+      <DependentUpon>Core.WindowHandle.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Core.WindowHandle.cpp">
+      <DependentUpon>Core.WindowHandle.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Pages.AboutPage.xaml.cpp">
@@ -204,13 +217,14 @@
       <DependentUpon>Pages.RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="Core.WindowHandleWrapper.idl">
+    <Midl Include="Core.WindowHandle.idl">
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Components.WindowSettings.idl">
       <DependentUpon>Components.WindowSettings.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Core.BackgroundInfo.idl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
