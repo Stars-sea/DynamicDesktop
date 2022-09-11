@@ -2,6 +2,8 @@
 
 #include "Core.WindowHandle.g.h"
 
+#include <map>
+
 import DynamicDesktop.Core.Handle;
 
 namespace winrt::DynamicDesktop::Core::implementation
@@ -15,6 +17,14 @@ namespace winrt::DynamicDesktop::Core::implementation
 		hstring WindowTitle() const { return hstring(handle.GetWindowTitle().c_str()); }
 		hstring WindowClass() const { return hstring(handle.GetWindowClass().c_str()); }
 		size_t  WindowIcon()  const { return (size_t)handle.GetWindowIcon();  }
+
+		Windows::Foundation::Collections::IObservableMap<hstring, hstring> Details() {			
+			std::map<hstring, hstring> m;
+			for (auto pair : handle.GetDetails()) {
+				m[pair.first.c_str()] = pair.second.c_str();
+			}
+			return multi_threaded_observable_map<hstring, hstring>(std::move(m));
+		}
 
 		WindowHandle(const NativeWindowHandle& handle) : handle(handle) { }
 		WindowHandle(const size_t& hId);

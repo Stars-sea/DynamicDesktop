@@ -21,7 +21,10 @@
     <Midl Include="Core.WindowHandle.idl">
       <Filter>Core</Filter>
     </Midl>
-    <Midl Include="Core.BackgroundInfo.idl">
+    <Midl Include="Core.WindowBackground.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core.ApplicationBackground.idl">
       <Filter>Core</Filter>
     </Midl>
   </ItemGroup>
@@ -40,15 +43,9 @@
     <ClCompile Include="Core.HandleHelper.ixx">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core.BackgroundInfo.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Core.BackgroundInfo.h">
-      <Filter>Core</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

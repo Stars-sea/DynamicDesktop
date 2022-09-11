@@ -1,0 +1,20 @@
+import "Core.WindowBackground.idl";
+
+namespace DynamicDesktop.Core
+{
+    [bindable]
+    [default_interface]
+    unsealed runtimeclass ApplicationBackground : WindowBackground
+    {
+        overridable WindowHandle Handle      { get; };
+        overridable Boolean      IsAvailable { get; };
+
+        overridable Windows.Foundation.Collections.IObservableMap<String, String> Details { get; };
+
+        Boolean IsProcessAvailable { get; };
+
+        ApplicationBackground(String commandline, String workingDir);
+
+        Boolean Launch();
+    }
+}

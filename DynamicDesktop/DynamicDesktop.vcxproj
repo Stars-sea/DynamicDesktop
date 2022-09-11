@@ -21,7 +21,7 @@
     <AppxPackage>true</AppxPackage>
     <ApplicationType>Windows Store</ApplicationType>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
     <UseWinUI>true</UseWinUI>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
@@ -106,8 +106,12 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core.BackgroundInfo.h">
-      <DependentUpon>Core.BackgroundInfo.idl</DependentUpon>
+    <ClInclude Include="Core.ApplicationBackground.h">
+      <DependentUpon>Core.ApplicationBackground.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Core.WindowBackground.h">
+      <DependentUpon>Core.WindowBackground.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core.WindowHandle.h">
@@ -155,11 +159,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core.BackgroundInfo.cpp">
-      <DependentUpon>Core.BackgroundInfo.idl</DependentUpon>
+    <ClCompile Include="Core.ApplicationBackground.cpp">
+      <DependentUpon>Core.ApplicationBackground.idl</DependentUpon>
+      <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core.BackgroundInfo.ixx">
-      <DependentUpon>Core.BackgroundInfo.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Core.WindowBackground.cpp">
+      <DependentUpon>Core.WindowBackground.idl</DependentUpon>
+      <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core.HandleHelper.ixx" />
     <ClCompile Include="Core.WindowHandle.ixx">
@@ -197,6 +205,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="Core.ApplicationBackground.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Core.WindowBackground.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Pages.AboutPage.idl">
       <DependentUpon>Pages.AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -224,7 +238,6 @@
       <DependentUpon>Components.WindowSettings.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="Core.BackgroundInfo.idl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png" />

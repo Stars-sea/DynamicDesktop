@@ -50,7 +50,7 @@ public:
 
 	NativeWindowHandle GetWindowHandle() {
 		// TODO: 有缺陷, 如果没有句柄或不是用户想要的句柄咋办
-		return NativeWindowHandle(*hWnds.begin());
+		return NativeWindowHandle(hWnds.front());
 	}
 
 	bool IsProcessAvailable() {

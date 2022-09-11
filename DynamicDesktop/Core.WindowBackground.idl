@@ -1,0 +1,16 @@
+import "Core.WindowHandle.idl";
+
+namespace DynamicDesktop.Core
+{
+    [bindable]
+    [default_interface]
+    unsealed runtimeclass WindowBackground
+    {
+        overridable WindowHandle Handle      { get; };
+        overridable Boolean      IsAvailable { get; };
+
+        overridable Windows.Foundation.Collections.IObservableMap<String, String> Details { get; };
+
+        WindowBackground(WindowHandle handle);
+    }
+}

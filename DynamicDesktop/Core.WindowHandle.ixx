@@ -1,4 +1,5 @@
 #include "pch.h"
+#include <map>
 #include <string>
 #include <Windows.h>
 
@@ -86,6 +87,15 @@ public:
 		if (!Valid()) return nullptr;
 
 		return (HICON)GetClassLongPtr(hWnd, GCLP_HICON);
+	}
+
+	std::map<std::wstring, std::wstring> GetDetails() const
+	{
+		std::map<std::wstring, std::wstring> m;
+		m[L"Title"]  = GetWindowTitle();
+		m[L"Class"]  = GetWindowClass();
+		m[L"Handle"] = operator std::wstring();
+		return m;
 	}
 
 	bool operator==(const NativeWindowHandle& other) const

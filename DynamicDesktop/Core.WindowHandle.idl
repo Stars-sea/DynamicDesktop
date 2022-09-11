@@ -1,5 +1,6 @@
 namespace DynamicDesktop.Core
 {
+    [default_interface]
     runtimeclass WindowHandle : Windows.Foundation.IStringable
     {
         UInt64  HId         { get; };
@@ -8,6 +9,8 @@ namespace DynamicDesktop.Core
         String  WindowTitle { get; };
         String  WindowClass { get; };
         UInt64  WindowIcon  { get; };
+
+        Windows.Foundation.Collections.IObservableMap<String, String> Details { get; };
 
         WindowHandle(Int32 hId);
         WindowHandle(String name, Boolean isTitle);
