@@ -163,8 +163,6 @@
       <DependentUpon>Core.ApplicationBackground.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core.BackgroundInfo.ixx">
-    </ClCompile>
     <ClCompile Include="Core.WindowBackground.cpp">
       <DependentUpon>Core.WindowBackground.idl</DependentUpon>
       <SubType>Code</SubType>

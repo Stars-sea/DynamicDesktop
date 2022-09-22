@@ -6,13 +6,20 @@
 
 namespace winrt::DynamicDesktop::Core::implementation
 {
-	WindowHandle::WindowHandle(const size_t& hId) : 
+	const Core::WindowHandle WindowHandle::empty = Core::WindowHandle(static_cast<uint64_t>(0));
+
+	bool WindowHandle::IsEnabled() const { return handle.IsCovered(); }
+
+	void WindowHandle::IsEnabled(bool value)
+	{
+		if (value) handle.Cover();
+		else handle.Uncover();
+	}
+
+	WindowHandle::WindowHandle(const size_t& hId) :
 		handle(NativeWindowHandle(hId)) { }
 	WindowHandle::WindowHandle(const hstring& name, bool isTitle) :
 	    handle(NativeWindowHandle(name.c_str(), isTitle)) { }
-
-	bool WindowHandle::Cover()   const { return handle.Cover(); }
-	void WindowHandle::Uncover() const { handle.Uncover(); }
 
 	bool WindowHandle::Valid() const { return handle.Valid(); }
 

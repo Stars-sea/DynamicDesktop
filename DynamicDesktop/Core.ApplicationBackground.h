@@ -2,21 +2,25 @@
 
 #include "Core.ApplicationBackground.g.h"
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <Windows.h>
 
 namespace winrt::DynamicDesktop::Core::implementation
 {
-    struct ApplicationBackground : ApplicationBackgroundT<ApplicationBackground, WindowBackground>, private WindowBackground
+    struct ApplicationBackground : ApplicationBackgroundT<ApplicationBackground, WindowBackground>
     {
     public:
-        // TODO: 完善 ApplicationBackground
+        Core::WindowHandle Handle();
+
+        Windows::Foundation::Collections::IVectorView<Core::WindowHandle> Handles() const { return handles.GetView(); }
 
         bool IsProcessAvailable();
+        bool IsAvailable();
 
         ApplicationBackground(hstring commandline, hstring workingDir) 
-            : commandline(commandline), workingDir(workingDir), WindowBackground() { }
+            : commandline(commandline), workingDir(workingDir) { }
 
         bool Launch();
 
@@ -24,8 +28,8 @@ namespace winrt::DynamicDesktop::Core::implementation
         const hstring commandline;
         const hstring workingDir;
 
-        PROCESS_INFORMATION pInfo;
-        std::vector<HWND> hWnds;
+        std::shared_ptr<PROCESS_INFORMATION> pInfo{ nullptr };
+        Windows::Foundation::Collections::IVector<Core::WindowHandle> handles;
     };
 }
 

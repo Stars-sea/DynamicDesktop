@@ -3,20 +3,20 @@ namespace DynamicDesktop.Core
     [default_interface]
     runtimeclass WindowHandle : Windows.Foundation.IStringable
     {
+        static WindowHandle Empty { get; };
+
         UInt64  HId         { get; };
         String  HexId       { get; };
         Boolean IsCovered   { get; };
         String  WindowTitle { get; };
         String  WindowClass { get; };
         UInt64  WindowIcon  { get; };
+        Boolean IsEnabled   { get; set; };
 
         Windows.Foundation.Collections.IObservableMap<String, String> Details { get; };
 
-        WindowHandle(Int32 hId);
+        WindowHandle(UInt64 hId);
         WindowHandle(String name, Boolean isTitle);
-
-        Boolean Cover();
-        void Uncover();
         
         Boolean Valid();
 

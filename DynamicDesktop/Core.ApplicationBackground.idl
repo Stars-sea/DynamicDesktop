@@ -6,12 +6,11 @@ namespace DynamicDesktop.Core
     [default_interface]
     unsealed runtimeclass ApplicationBackground : WindowBackground
     {
-        overridable WindowHandle Handle      { get; };
-        overridable Boolean      IsAvailable { get; };
-
-        overridable Windows.Foundation.Collections.IObservableMap<String, String> Details { get; };
+        overridable WindowHandle Handle { get; };
+        Windows.Foundation.Collections.IVectorView<WindowHandle> Handles { get; };
 
         Boolean IsProcessAvailable { get; };
+        overridable Boolean IsAvailable { get; };
 
         ApplicationBackground(String commandline, String workingDir);
 

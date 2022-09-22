@@ -37,9 +37,6 @@
     <ClCompile Include="Core.WindowHandle.ixx">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core.BackgroundInfo.ixx">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Core.HandleHelper.ixx">
       <Filter>Core</Filter>
     </ClCompile>

@@ -11,12 +11,17 @@ namespace winrt::DynamicDesktop::Core::implementation
 	struct WindowHandle : WindowHandleT<WindowHandle>
 	{
 	public:
+		static Core::WindowHandle Empty() { return empty; }
+
 		size_t  HId()         const { return handle.hId; }
 		hstring HexId()       const { return ToString(); }
 		bool    IsCovered()   const { return handle.IsCovered(); }
 		hstring WindowTitle() const { return hstring(handle.GetWindowTitle().c_str()); }
 		hstring WindowClass() const { return hstring(handle.GetWindowClass().c_str()); }
 		size_t  WindowIcon()  const { return (size_t)handle.GetWindowIcon();  }
+
+		bool IsEnabled() const;
+		void IsEnabled(bool value);
 
 		Windows::Foundation::Collections::IObservableMap<hstring, hstring> Details() {			
 			std::map<hstring, hstring> m;
@@ -30,14 +35,13 @@ namespace winrt::DynamicDesktop::Core::implementation
 		WindowHandle(const size_t& hId);
 		WindowHandle(const hstring& name, bool isTitle);
 		
-		bool Cover() const;
-		void Uncover() const;
-		
 		bool Valid() const;
 
 		hstring ToString() const;
 		bool Equals(const IInspectable& other) const;
 	private:
+		static const Core::WindowHandle empty;
+
 		const NativeWindowHandle handle;
 	};
 }

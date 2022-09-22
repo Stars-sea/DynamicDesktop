@@ -13,15 +13,14 @@ namespace winrt::DynamicDesktop::Core::implementation
 
     public:
         Core::WindowHandle Handle() { return handle; }
-        virtual bool IsAvailable() { return handle.Valid(); }
+        bool IsAvailable() { return handle.Valid(); }
+
+        bool IsEnabled() const { return handle.IsEnabled(); }
+        void IsEnabled(bool value) { handle.IsEnabled(value); }
 
         Windows::Foundation::Collections::IObservableMap<hstring, hstring> Details();
 
         WindowBackground(Core::WindowHandle handle) : handle(handle) { }
-
-    protected:
-        WindowBackground() = default;
-        // void SetHandle(Core::WindowHandle const& handle) { this->handle = handle; }
     };
 }
 namespace winrt::DynamicDesktop::Core::factory_implementation

@@ -6,8 +6,9 @@ namespace DynamicDesktop.Core
     [default_interface]
     unsealed runtimeclass WindowBackground
     {
-        overridable WindowHandle Handle      { get; };
-        overridable Boolean      IsAvailable { get; };
+        WindowHandle Handle { get; };
+        overridable Boolean IsAvailable { get; };
+        overridable Boolean IsEnabled { get; set; };
 
         overridable Windows.Foundation.Collections.IObservableMap<String, String> Details { get; };
 
